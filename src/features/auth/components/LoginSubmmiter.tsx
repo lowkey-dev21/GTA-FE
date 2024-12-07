@@ -125,7 +125,7 @@ const LoginSubmitter = () => {
             >
               <span className={`${load ? " hidden" : "flex"}`}>Login</span>
               <div className={` ${load ? "flex" : "hidden"}  `}>
-                <LoadBtn size={"30"} speed="1.75" color={"white"} />
+                <LoadBtn height={"30"} width={"30"} color={"white"} />
               </div>
             </button>
             <Link

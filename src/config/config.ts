@@ -48,23 +48,3 @@ export const deleteConfig = async (api: string) => {
     console.log(error);
   }
 };
-
-// Settings [emial patch]
-export const patchEmailConfig = async (api, patchData) => {
-  try {
-    const emailVerifyToken = Cookie.get("emailVerifyToken");
-    console.log("Sending request with token: ", emailVerifyToken); // Log token for debugging
-    const response = await axiosInstance.patch(api, patchData, {
-      headers: {
-        Authorization: `Bearer ${emailVerifyToken}`,
-      },
-    });
-    console.log("Response from server: ", response.data); // Log the successful response
-    return response.data;
-  } catch (error: any) {
-    console.error("Request failed: ", error.response || error); // Log the error response
-    throw new Error(
-      error.response?.data?.message || error.message || "Request failed",
-    );
-  }
-};

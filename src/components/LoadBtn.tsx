@@ -1,23 +1,27 @@
-import { bouncy } from "ldrs";
+import { CirclesWithBar } from "react-loader-spinner";
 
 const LoadBtn = ({
-  speed,
+  height,
+  width,
   color,
-  size,
 }: {
-  speed: string;
+  height: string;
+  width: string;
   color: string;
-  size: string;
 }) => {
-  bouncy.register();
-
-  // Default values shown
   return (
-    <>
-      <div>
-        <l-bouncy size={size} speed={speed} color={color}></l-bouncy>
-      </div>
-    </>
+    <CirclesWithBar
+      height={height}
+      width={width}
+      color={"blue"}
+      outerCircleColor={color}
+      innerCircleColor={color}
+      barColor={color}
+      ariaLabel="circles-with-bar-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+      visible={true}
+    />
   );
 };
 
