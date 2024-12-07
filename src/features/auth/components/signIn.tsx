@@ -32,7 +32,7 @@ const LogIn = () => {
               Welcome Back
             </h1>
 
-            <LoginSubmitter api="jsjsj" formData={"msmsm"} />
+            <LoginSubmitter />
           </section>
         </section>
 

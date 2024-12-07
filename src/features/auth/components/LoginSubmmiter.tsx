@@ -8,7 +8,7 @@ import Link from "next/link";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa";
 
-const LoginSubmitter = ({ api, formData }: { api: string; formData: any }) => {
+const LoginSubmitter = () => {
   const router = useRouter();
   // loading
   const [load, setLoad] = useState(false);
@@ -39,7 +39,6 @@ const LoginSubmitter = ({ api, formData }: { api: string; formData: any }) => {
   // Password state
   const [password, setPassword] = useState("");
   const [eye, setEye] = useState(false);
-  const [passwordMsg, setPasswordMsg] = useState("");
 
   // confirm all fields
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
