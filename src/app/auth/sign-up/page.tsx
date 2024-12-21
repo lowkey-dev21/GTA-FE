@@ -1,9 +1,11 @@
-const SignUp = () => {
+import SignUp from "@/features/auth/components/signUp";
+
+const page = () => {
   return (
     <>
-      <div>SignUp</div>
+      <SignUp />
     </>
   );
 };
 
-export default SignUp;
+export default page;

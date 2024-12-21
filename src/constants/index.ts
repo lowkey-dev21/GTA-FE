@@ -1,5 +1,6 @@
-import { Nav_item } from "@/types";
-export const nav_links: Nav_item[] = [
+import { HeaderItems } from "@/types/type";
+
+export const navLinks: HeaderItems[] = [
   {
     name: "Pricing",
     link: "/pricing",
@@ -29,3 +30,10 @@ export const nav_links: Nav_item[] = [
     link: "/merch",
   },
 ];
+
+export const webName: string[] = ["Gabriel", "Trading", "Academy"];
+
+import logo from "../../public/assets/logo.jpg";
+export const images = {
+  logo,
+};

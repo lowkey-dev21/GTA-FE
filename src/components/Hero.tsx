@@ -1,19 +1,44 @@
 "use client";
-
-import React from "react";
 import Link from "next/link";
 import FinlogixWidget from "./FinlogixWidget";
+import { webName } from "@/constants";
+import { useEffect } from "react";
+import { userAuthStore } from "../features/auth/store/userAuthStore";
+import { Loader } from "lucide-react";
 
 const Hero = () => {
+  // Move the store hook inside the component body
+  const { checkAuth, isCheckingAuth, authUser } = userAuthStore();
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  useEffect(() => {
+    // Wait for `isCheckingAuth` to complete before navigating
+    if (!isCheckingAuth) {
+      if (!authUser) {
+        return; // Navigate to login page if not authenticated
+      }
+    }
+  }, [authUser, isCheckingAuth]);
+
+  if (isCheckingAuth && !authUser) {
+    return (
+      <div className="flex items-center z-[5000] sticky justify-center h-screen">
+        <Loader className="size-10 animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <>
-      <section className=" xl:py-[6rem] w-full flex-col  xl:flex-row  gap-[3rem] flex justify-between ">
+      <section className=" font-latoRegular xl:py-[6rem] w-full flex-col  xl:flex-row  gap-[3rem] flex justify-between ">
         {/* first phase */}
         <section className=" w-full  xl:w-[50%]   ">
           {/* Update */}
           <div className=" p-1 rounded-full text-[14px] w-[200px] dark:border-slate-600 border-slate-400 border ">
             <p className="flex gap-3   items-center">
-              <span className=" bg-blue-600  text-white p-1 w-[60px] text-center rounded-full">
+              <span className="font-lato-bold bg-blue-600  text-white p-1 w-[60px] text-center rounded-full">
                 NEW
               </span>{" "}
               GTA updates v1.0
@@ -34,30 +59,36 @@ const Hero = () => {
               </h1>
 
               <p className=" font-light sm:w-[90%] mt-5 sm:text-2xl text-xl text-justify tracking-wider sm:mt-[2rem] ">
-                Join <span className="text-green-800  font-bold">G</span>
-                <span className="text-red-500  font-bold">T</span>
-                <span className="text-blue-600 font-bold">A </span>and unlock
-                the world of forex trading with our premier Forex academy.
-                Access comprehensive courses and resources to guide you toward
-                financial success. Start your journey today!
+                Join{" "}
+                <span className="text-green-800  font-bold">{webName[0]}</span>
+                <span className="text-red-500  font-bold"> {webName[1]}</span>
+                <span className="text-blue-600 font-bold"> {webName[2]} </span>
+                and unlock the world of forex trading with our premier Forex
+                academy. Access comprehensive courses and resources to guide you
+                toward financial success. Start your journey today!
               </p>
-
-              <div className=" flex gap-4  sm:w-[60%] w-full justify-between">
-                <Link
-                  onClick={() => console.log("Clicked")}
-                  href={"/auth/login"}
-                  className="flex mt-10    xl:w-[50%] text-blue-600 items-center mx-auto sm:mx-0  sm:w-[50%]  sm:rounded-3xl gap-2 sm:h-[70px]  h-[60px] border-blue-600 border-[2px] w-full rounded-full justify-center p-5 text-xl font-bold"
-                >
-                  <span className=" text-xl  ">LOGIN</span>
-                </Link>
-                <Link
-                  onClick={() => console.log("Clicked")}
-                  href={"/auth/sign-up"}
-                  className="flex mt-10 xl:w-[50%] sm:w-[50%]  h-[60px] items-center mx-auto sm:mx-0  sm:rounded-3xl gap-2 sm:h-[70px]  text-white bg-blue-600 w-full rounded-full justify-center p-5 text-xl font-bold"
-                >
-                  <p>SIGN UP</p>
-                </Link>
-              </div>
+              {authUser ? (
+                //TODO: data to be aded
+                //WARN: important
+                <div className="text-3xl mt-6 text-red-500">something to be added later on</div>
+              ) : (
+                <div className=" flex gap-4  sm:w-[60%] w-full justify-between">
+                  <Link
+                    onClick={() => console.log("Clicked")}
+                    href={"/auth/login"}
+                    className="flex mt-10    xl:w-[50%] text-blue-600 items-center mx-auto sm:mx-0  sm:w-[50%]  sm:rounded-3xl gap-2 sm:h-[70px]  h-[60px] border-blue-600 border-[2px] w-full rounded-full justify-center p-5 text-xl font-bold"
+                  >
+                    <span className=" text-xl  ">LOGIN</span>
+                  </Link>
+                  <Link
+                    onClick={() => console.log("Clicked")}
+                    href={"/auth/sign-up"}
+                    className="flex mt-10 xl:w-[50%] sm:w-[50%]  h-[60px] items-center mx-auto sm:mx-0  sm:rounded-3xl gap-2 sm:h-[70px]  text-white bg-blue-600 w-full rounded-full justify-center p-5 text-xl font-bold"
+                  >
+                    <p>SIGN UP</p>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </section>

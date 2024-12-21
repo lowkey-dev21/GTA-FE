@@ -2,6 +2,16 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
+import localfont from "next/font/local";
+
+const lato = localfont({
+  src: [
+    {
+      path: "../../public/fonts/Lato-Regular.ttf",
+    },
+  ],
+  variable: "--font-lato",
+});
 
 export const metadata: Metadata = {
   title: "GTA",
@@ -18,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={` bg-white dark:bg-[#0a0a0a]`}>
+      <body className={`${lato.variable} bg-white dark:bg-[#0a0a0a]`}>
         {/* ThemeProvider ensures consistent theme rendering */}
         <ThemeProvider
           attribute="class"
@@ -26,7 +36,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="  ">
+            <div className=" ">{children}</div>
+          </div>
         </ThemeProvider>
       </body>
     </html>
