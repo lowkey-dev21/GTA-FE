@@ -2,33 +2,17 @@
 import Link from "next/link";
 import FinlogixWidget from "./FinlogixWidget";
 import { webName } from "@/constants";
-import { useEffect } from "react";
-import { userAuthStore } from "../features/auth/store/userAuthStore";
-import { Loader } from "lucide-react";
+import { useAuthCheck } from "@/features/auth/hooks/uesAuthCheck";
+import HeroSkeleton from "@/skeleton/HeroSkeleton";
 
 const Hero = () => {
-  // Move the store hook inside the component body
-  const { checkAuth, isCheckingAuth, authUser } = userAuthStore();
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
+  //check auth
+  const { isLoading, loadingUI, user } = useAuthCheck({
+    LoadingComponent: HeroSkeleton,
+    requireAuth: false,
+  });
 
-  useEffect(() => {
-    // Wait for `isCheckingAuth` to complete before navigating
-    if (!isCheckingAuth) {
-      if (!authUser) {
-        return; // Navigate to login page if not authenticated
-      }
-    }
-  }, [authUser, isCheckingAuth]);
-
-  if (isCheckingAuth && !authUser) {
-    return (
-      <div className="flex items-center z-[5000] sticky justify-center h-screen">
-        <Loader className="size-10 animate-spin" />
-      </div>
-    );
-  }
+  if (isLoading) return loadingUI;
 
   return (
     <>
@@ -67,10 +51,12 @@ const Hero = () => {
                 academy. Access comprehensive courses and resources to guide you
                 toward financial success. Start your journey today!
               </p>
-              {authUser ? (
+              {user ? (
                 //TODO: data to be aded
                 //WARN: important
-                <div className="text-3xl mt-6 text-red-500">something to be added later on</div>
+                <div className="text-3xl mt-6 text-red-500">
+                  something to be added later on
+                </div>
               ) : (
                 <div className=" flex gap-4  sm:w-[60%] w-full justify-between">
                   <Link

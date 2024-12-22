@@ -1,10 +1,11 @@
 "use client";
-
-import { UserContext } from "@/hooks/userContext";
+import { UserContext } from "@/contexts/userContext";
 import { useContext } from "react";
+
 const HomePage = () => {
-  const authUser = useContext(UserContext);
-  return <div>Home page {authUser.email}</div>;
+  const user = useContext(UserContext);
+  // No need for auth checks here since Layout handles it
+  return <div>Home page {user.email}</div>;
 };
 
 export default HomePage;

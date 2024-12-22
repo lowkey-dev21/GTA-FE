@@ -16,7 +16,7 @@ const page = () => {
           modeToggler={<ModeToggle />}
           auth={<Auth />}
         />
-        <div className="w-full px-5 pt-12 sm:pt-6 flex flex-col items-center">
+        <div className="w-full  pt-12 sm:pt-6 flex flex-col items-center">
           <Hero />
         </div>
       </div>

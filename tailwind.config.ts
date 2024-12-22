@@ -1,4 +1,5 @@
 import tailwindcssAnimate from "tailwindcss-animate";
+import daisyui from "daisyui";
 const config = {
   darkMode: ["class"],
   content: [
@@ -256,7 +257,17 @@ const config = {
       addUtilities(newUtilities, ["responsive", "hover"]);
     },
     tailwindcssAnimate,
+
+    daisyui,
   ],
+  daisyui: {
+    themes: false, // Disables all DaisyUI themes
+    base: false, // Prevents base styles from loading
+    utils: true, // Keeps utility classes enabled
+    logs: false, // Suppresses DaisyUI logs in the console
+    rtl: false, // Disables RTL support if not needed
+    prefix: "", // No prefix for DaisyUI classes
+  },
 };
 
 export default config;

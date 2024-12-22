@@ -12,6 +12,7 @@ interface UserAuthStoreTypes {
   checkAuth: () => void;
   login: (formData: LoginFormI) => void;
   signUp: (formaData: SignUpFromI) => void;
+  logout: () => void
 }
 
 export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
@@ -23,12 +24,10 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
   checkAuth: async () => {
     try {
       const res = await getConfig("/api/auth/check-auth");
-
-      set({ authUser: res.user });
+      set({ authUser: res.user, isCheckingAuth: false });
     } catch (error: any) {
       console.log(error);
-    } finally {
-      set({ isCheckingAuth: false });
+      set({ authUser: null, isCheckingAuth: false }); // Ensure authUser is reset to null
     }
   },
 
@@ -55,6 +54,20 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
       console.log(error);
     } finally {
       set({ isSigningUp: false });
+    }
+  },
+  logout: async () => {
+    try {
+      // Perform the logout API call
+      await getConfig("/api/auth/logout");
+
+      // Get the `checkAuth` function from the store
+      const { checkAuth } = userAuthStore.getState();
+
+      // Run `checkAuth` to verify the authentication state after logging out
+      checkAuth();
+    } catch (error: any) {
+      console.log(error);
     }
   },
 }));

@@ -1,43 +1,23 @@
 "use client";
-import React, { ReactNode, useEffect } from "react";
-import { userAuthStore } from "@/features/auth/store/userAuthStore";
-import { Loader } from "lucide-react";
-
-import { useRouter } from "next/navigation";
-import UserDataProvider from "@/hooks/userContext";
+import React, { ReactNode } from "react";
+import UserDataProvider from "@/contexts/userContext";
+import { useAuthCheck } from "@/features/auth/hooks/uesAuthCheck";
+import Loading from "@/components/Loader";
+import { redirect } from "next/navigation";
 
 const HomeLayout = ({ children }: { children: ReactNode }) => {
-  // Move the store hook inside the component body
-  const { checkAuth, isCheckingAuth, authUser } = userAuthStore();
+  const { isLoading, loadingUI, user } = useAuthCheck({
+    LoadingComponent: Loading,
+  });
 
-  const router = useRouter();
+  if (isLoading) return loadingUI;
 
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
-  useEffect(() => {
-    // Wait for `isCheckingAuth` to complete before navigating
-    if (!isCheckingAuth) {
-      if (!authUser) {
-        router.push("/auth/login"); // Navigate to login page if not authenticated
-      }
-    }
-  }, [authUser, isCheckingAuth, router]);
-
-  if (isCheckingAuth && !authUser) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader className="size-10 animate-spin" />
-      </div>
-    );
+  // If not authenticated, redirect immediately
+  if (!user) {
+    redirect("/auth/login");
   }
 
-  return (
-    <>
-      <UserDataProvider>{children}</UserDataProvider>
-    </>
-  );
+  return <UserDataProvider>{children}</UserDataProvider>;
 };
 
 export default HomeLayout;
