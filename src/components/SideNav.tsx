@@ -11,7 +11,7 @@ const SideNav = ({
   navLinks: HeaderItems[];
 }) => {
   return (
-    <div className=" lg:hidden  bg-white dark:bg-[#0a0a0a]` h-[100%] flex flex-col items-center px-5 fixed w-full top-0 pt-[5rem] ">
+    <div className=" lg:hidden  bg-white dark:bg-[#0a0a0a] h-[100%] flex flex-col items-center px-5 fixed w-full top-0 pt-[5rem] ">
       <div className=" flex flex-col w-full">
         <div className="font-semibold">{auth}</div>
         <div className="w-full mt-6  flex flex-col opacity-80  ">
