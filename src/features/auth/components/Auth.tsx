@@ -27,10 +27,10 @@ const Auth = () => {
           <User user={user} />
         </div>
       ) : (
-        <div className=" sm:flex-row flex  flex-col gap-4 items-center h-[40px]   ">
+        <div className=" sm:flex-row flex lg:mb-0 mb-[5rem]  flex-col gap-4 items-center h-[40px]   ">
           <CustomButton
             title="Login"
-            styles=" border-[2px] border-initialPrimary-500 flex items-center justify-center w-full h-[40px] lg:w-[120px] hover:opacity-80 text-initialPrimary-500 py-2 rounded-md lg:rounded-full  px-6 "
+            styles=" border-[1px] lg:border-[2px] border-initialPrimary-500 flex items-center justify-center w-full h-[40px] lg:w-[120px] hover:opacity-80 text-initialPrimary-500 py-2 rounded-md lg:rounded-full  px-6 "
             action={() => router.push("/auth/login")}
           />
 
