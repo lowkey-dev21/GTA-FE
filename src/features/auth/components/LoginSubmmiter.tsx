@@ -1,21 +1,20 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { userAuthStore } from "../store/userAuthStore";
-import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Loader } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { LoginFormI } from "../types/types";
 
-export interface LoginFormI {
-  emailOrUsername: string;
-  password: string;
-  isPasswordVisible?: boolean;
-}
+
 
 // Custom email validation function
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
-};
+}
+
+
 
 const LoginSubmitter = () => {
   const router = useRouter();
@@ -71,23 +70,24 @@ const LoginSubmitter = () => {
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validationState.isValid) return;
+
     try {
-      e.preventDefault();
-
-      if (!validationState.isValid) return;
-
-      // Actual submission logic would go here
       const formData: LoginFormI = {
         emailOrUsername: formState.emailOrUsername,
         password: formState.password,
       };
 
-      //login in user
-      login(formData);
-    } catch (error: any) {
-      console.log(error);
-    } finally {
+      // Wait for login to complete and store the result
+      await login(formData);
+
+      // Only navigate if login was successful
       router.push("/home");
+
+    } catch (error) {
+      console.error("Login error:", error);
+      // Handle error appropriately (show error message to user)
     }
   };
 
@@ -117,8 +117,8 @@ const LoginSubmitter = () => {
               value={formState.emailOrUsername}
               onChange={handleInputChange("emailOrUsername")}
               className={`mt-2 w-full px-3 sm:p-3 py-4 border ${!validationState.isValid && formState.emailOrUsername
-                  ? "border-red-400"
-                  : "border-slate-400"
+                ? "border-red-400"
+                : "border-slate-400"
                 } rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-400 dark:focus:ring-blue-400 dark:text-slate-300 dark:bg-[black] dark:placeholder-slate-500`}
               autoComplete="off"
             />
@@ -160,8 +160,8 @@ const LoginSubmitter = () => {
             type="submit"
             disabled={!validationState.isValid || isLoggingIn}
             className={`mt-4 rounded-md sm:h-[60px] w-full text-xl sm:text-2xl mb-[1rem] px-3 h-[55px] py-4 ${!validationState.isValid
-                ? "bg-gray-300 cursor-not-allowed dark:bg-slate-600 text-slate-400"
-                : "bg-blue-600 text-white"
+              ? "bg-gray-300 cursor-not-allowed dark:bg-slate-600 text-slate-400"
+              : "bg-blue-600 text-white"
               } flex justify-center items-center w-full`}
           >
             {isLoggingIn ? (

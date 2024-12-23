@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import { postConfig, getConfig } from "@/config/config";
 import { SignUpFromI } from "../components/SignUpSubmitter";
-import { LoginFormI } from "../components/LoginSubmmiter";
+import { LoginFormI } from "../types/types";
+
 
 interface UserAuthStoreTypes {
   isCheckingAuth: null | boolean;
@@ -34,12 +35,12 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
   login: async (formData) => {
     try {
       set({ isLoggingIn: true });
-
       const res = await postConfig("/api/auth/login", formData);
       set({ authUser: res.user });
-      console.log(res.message);
-    } catch (error: any) {
-      console.log(error);
+      return res; // Return the response
+    } catch (error) {
+      console.error("API error:", error);
+      throw error; // Re-throw to be handled by caller
     } finally {
       set({ isLoggingIn: false });
     }
@@ -56,6 +57,7 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
       set({ isSigningUp: false });
     }
   },
+
   logout: async () => {
     try {
       // Perform the logout API call
@@ -70,4 +72,5 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
       console.log(error);
     }
   },
+
 }));

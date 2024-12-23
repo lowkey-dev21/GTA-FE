@@ -7,8 +7,11 @@ import { userAuthStore } from "../store/userAuthStore";
 
 const UserDesktopTemplate = ({ user }: { user: UserData }) => {
   const { logout } = userAuthStore();
+
+  
+  
   return (
-    <div className="flex items-center justify-between w-full gap-3">
+    <div className="flex  items-center justify-between w-full gap-3">
       <p className="text-gray-800 dark:text-white">{user.email}</p>
 
       {/* Dropdown for Profile Picture */}

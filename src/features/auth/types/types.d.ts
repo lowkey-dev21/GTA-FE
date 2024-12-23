@@ -44,3 +44,12 @@ export interface UseAuthCheckProps {
   LoadingComponentProps?: Record<string, any>;
   requireAuth?: boolean;
 }
+
+
+export interface LoginFormI {
+  emailOrUsername: string;
+  password: string;
+  isPasswordVisible?: boolean;
+}
+
+
