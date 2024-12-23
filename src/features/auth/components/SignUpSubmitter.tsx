@@ -2,24 +2,22 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import { SignUpFromI } from "../types/types";
+import { userAuthStore } from "../store/userAuthStore";
 
-export interface SignUpFromI {
-  firstName: string;
-  lastName: string;
-  password: string;
-  email: string;
-  username: string;
-  isPasswordVisible?: boolean;
-}
 
 const SignUpSubmitter = () => {
+
+  const { signUp } = userAuthStore() || {};  // Default to an empty object if userAuthStore() is undefined
+
   const [signUpForm, setSignUpForm] = useState<SignUpFromI>({
     firstName: "",
     lastName: "",
     password: "",
+    confirmPassword: "",
     email: "",
-    username: "",
     isPasswordVisible: false,
+    isConfirmPasswordVisible: false
   });
 
   // Handle input changes
@@ -39,10 +37,34 @@ const SignUpSubmitter = () => {
     }));
   };
 
-  const handleSubmit = async () => {
+  // Toggle confirm password visibility
+  const toggleConfirmPassword = () => {
+    setSignUpForm((prev) => ({
+      ...prev,
+      isConfirmPasswordVisible: !prev.isConfirmPasswordVisible,
+    }));
+  };
+
+
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
+      const formData: SignUpFromI = {
+        firstName: signUpForm.firstName,
+        lastName: signUpForm.lastName,
+        email: signUpForm.email,
+        password: signUpForm.password
+      }
+
+      console.log(formData)
+
+      await signUp(formData)
+
     } catch (error: any) {
-      console.log(error);
+
+      console.error("Login error:", error);
     }
   };
 
@@ -82,17 +104,17 @@ const SignUpSubmitter = () => {
               </div>
             </div>
 
-            {/* username*/}
+            {/* email*/}
             <div className="flex flex-col">
-              <label htmlFor="username">username</label>
+              <label htmlFor="email">email</label>
 
               <div className=" flex-1  ">
                 <input
-                  id="username"
+                  id="email"
                   placeholder="lowkey"
                   type="text"
-                  value={signUpForm.username}
-                  onChange={handleInputChange("username")}
+                  value={signUpForm.email}
+                  onChange={handleInputChange("email")}
                   className={`mt-2 w-full px-3  sm:p-3  py-4 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-400 dark:focus:ring-blue-400 dark:text-slate-300 dark:bg-[black] dark:placeholder-slate-500`}
                   autoComplete="off"
                 />
@@ -133,18 +155,18 @@ const SignUpSubmitter = () => {
                 <input
                   id="password"
                   placeholder="••••••••"
-                  type={signUpForm.isPasswordVisible ? "text" : "password"}
-                  value={signUpForm.password}
-                  onChange={handleInputChange("password")}
+                  type={signUpForm.isConfirmPasswordVisible ? "text" : "password"}
+                  value={signUpForm.confirmPassword}
+                  onChange={handleInputChange("confirmPassword")}
                   className="mt-1 w-full px-3 py-4 sm:p-3 border border-slate-400 rounded-l-md rounded-r-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-400 dark:focus:ring-blue-400 dark:text-slate-300 dark:bg-[black] dark:placeholder-slate-500"
                   autoComplete="off"
                 />
                 <button
                   type="button"
-                  onClick={togglePasswordVisibility}
+                  onClick={toggleConfirmPassword}
                   className="text-center text-[small] mt-1 bg-white dark:bg-black border-slate-400 border rounded-r-md xl:w-[10%] w-[15%] flex items-center justify-center px-3 py-2"
                 >
-                  {signUpForm.isPasswordVisible ? <EyeOff /> : <Eye />}
+                  {signUpForm.isConfirmPasswordVisible ? <EyeOff /> : <Eye />}
                 </button>
               </div>
             </div>
@@ -152,7 +174,7 @@ const SignUpSubmitter = () => {
             {/*Sign up button*/}
             <button
               type="submit"
-              className={`mt-4 rounded-md sm:h-[60px] w-full text-xl sm:text-2xl mb-[1rem] px-3 h-[55px] py-4 bg-blue-600 text-white"
+              className={`mt-4 text-white rounded-md sm:h-[60px] w-full text-xl sm:text-2xl mb-[1rem] px-3 h-[55px] py-4 bg-blue-600 text-white"
                  flex justify-center items-center `}
             >
               Signup

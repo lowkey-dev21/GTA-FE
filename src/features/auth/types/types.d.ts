@@ -15,12 +15,6 @@ export interface CreateUserFormData {
   acceptTerms: boolean;
 }
 
-export interface LoginUserFormData {
-  emailOrUsername: string;
-  password: string;
-}
-
-
 export interface UserData {
   username: string;
   email?: string;
@@ -51,5 +45,17 @@ export interface LoginFormI {
   password: string;
   isPasswordVisible?: boolean;
 }
+
+
+export interface SignUpFromI {
+  firstName: string;
+  lastName: string;
+  password: string;
+  confirmPassword?: string
+  email: string;
+  isPasswordVisible?: boolean;
+  isConfirmPasswordVisible?: boolean
+}
+
 
 

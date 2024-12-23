@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { postConfig, getConfig } from "@/config/config";
-import { SignUpFromI } from "../components/SignUpSubmitter";
-import { LoginFormI } from "../types/types";
+import { LoginFormI, SignUpFromI } from "../types/types";
 
 
 interface UserAuthStoreTypes {

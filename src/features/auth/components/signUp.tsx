@@ -25,8 +25,8 @@ const SignUp = () => {
             </div>
           </div>
 
-          {/* Login section */}
-          <section className="  w-full h-full gap-[5rem] justify-center flex flex-col">
+          {/* Sign up section */}
+          <section className="  w-full h-full gap-[5rem] -mt-[3rem] justify-center flex flex-col">
             <SignUpSubmitter />
           </section>
         </section>
