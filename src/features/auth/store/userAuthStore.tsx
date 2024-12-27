@@ -1,6 +1,9 @@
-import { create } from "zustand";
-import { postConfig, getConfig } from "@/config/config";
+import { create } from "zustand"
 import { LoginFormI, SignUpFromI } from "../types/types";
+import axiosInstance from "@/services/api";
+import { toaster } from "@/config/config";
+
+
 
 
 interface UserAuthStoreTypes {
@@ -8,6 +11,9 @@ interface UserAuthStoreTypes {
   authUser: null | any;
   isLoggingIn: boolean;
   isSigningUp: boolean;
+
+  //signedUp: boolean;
+  //loggedIn: boolean;
 
   checkAuth: () => void;
   login: (formData: LoginFormI) => void;
@@ -20,11 +26,13 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
   authUser: null,
   isLoggingIn: false,
   isSigningUp: false,
+  //signedUp: false,
+  //loggedIn: false,
 
   checkAuth: async () => {
     try {
-      const res = await getConfig("/api/auth/check-auth");
-      set({ authUser: res.user, isCheckingAuth: false });
+      const res = await axiosInstance.get("/api/auth/check-auth");
+      set({ authUser: res.data.user, isCheckingAuth: false });
     } catch (error: any) {
       console.log(error);
       set({ authUser: null, isCheckingAuth: false }); // Ensure authUser is reset to null
@@ -34,33 +42,35 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
   login: async (formData) => {
     try {
       set({ isLoggingIn: true });
-      const res = await postConfig("/api/auth/login", formData);
-      set({ authUser: res.user });
-      return res; // Return the response
-    } catch (error) {
-      console.error("API error:", error);
-      throw error; // Re-throw to be handled by caller
-    } finally {
-      set({ isLoggingIn: false });
+      const res = await axiosInstance.post("/api/auth/login", formData);
+      set({ authUser: res.data.user, isLoggingIn: false });
+      // Return the response
+    } catch (error: any) {
+      // Re-throw to be handled by caller
+      toaster.toastE(error.response?.data.message)
+      set({ isLoggingIn: false })
+
     }
   },
 
   signUp: async (formData: SignUpFromI) => {
     try {
-      set({ isSigningUp: true });
-      const res = await postConfig("/api/auth/sign-up", formData);
-      console.log(res.message);
+      const response = await axiosInstance.post("/api/auth/sign-up", formData);
+      console.log(response.data);// Log the response to see what is returned
+      toaster.toastS(response.data.message)
+      return response
     } catch (error: any) {
-      console.log(error);
-    } finally {
-      set({ isSigningUp: false });
+      toaster.toastE(error.response?.data.message)
+
     }
   },
+
+
 
   logout: async () => {
     try {
       // Perform the logout API call
-      await getConfig("/api/auth/logout");
+      await axiosInstance.get("/api/auth/logout");
 
       // Get the `checkAuth` function from the store
       const { checkAuth } = userAuthStore.getState();
@@ -68,7 +78,7 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
       // Run `checkAuth` to verify the authentication state after logging out
       checkAuth();
     } catch (error: any) {
-      console.log(error);
+      toaster.toastE(error.response?.data.message)
     }
   },
 

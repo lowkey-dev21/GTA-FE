@@ -1,50 +1,66 @@
-import axiosInstance from "../services/api";
-import Cookie from "js-cookie";
+import { toast, Bounce } from "react-toastify";
 
-export const getConfig = async (api: string) => {
-  try {
-    const token = Cookie.get("token");
-    const response = await axiosInstance.get(api, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+export const toaster = {
+  toastE: (message: string) => {
+    toast.error(message, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    })
+  },
 
-    // console.log(response.data); // Log the response to see what is returned
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+  toastS: (message: string) => {
+    toast.success(message, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    })
 
-export const postConfig = async (api: string, postData: any) => {
-  try {
-    const token = Cookie.get("token");
-    const response = await axiosInstance.post(api, postData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  },
 
-    // console.log(response.data); // Log the response to see what is returned
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
-export const deleteConfig = async (api: string) => {
-  try {
-    const token = Cookie.get("token");
-    const response = await axiosInstance.delete(api, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  toastW: (message: string) => {
+    toast.warning(message, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    })
 
-    // console.log(response.data); // Log the response to see what is returned
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+  },
+
+
+  toastI: (message: string) => {
+    toast.info(message, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    })
+
+  },
+
+
+}

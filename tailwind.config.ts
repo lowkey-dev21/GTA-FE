@@ -24,6 +24,20 @@ const config = {
       },
     },
     extend: {
+      keyframes: {
+        slideDown: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(0)' }
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        }
+      },
+      animation: {
+        slideDown: 'slideDown 0.3s ease-out',
+        fadeIn: 'fadeIn 0.3s ease-out'
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -20,3 +20,10 @@ export interface HeaderProps {
   auth: ReactNode;
   modeToggler: ReactNode;
 }
+
+
+export interface ResponseTypes {
+  [key]: {
+    [key]: any;
+  }
+}

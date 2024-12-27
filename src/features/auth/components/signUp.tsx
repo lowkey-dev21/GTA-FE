@@ -1,24 +1,19 @@
 import React from "react";
-import logo from "../../../../public//assets/logo.jpg";
-import Image from "next/image";
+
 import { ModeToggle } from "@/components/modeToggler";
 import SignUpSubmitter from "./SignUpSubmitter";
+import Logo from "@/components/Logo";
 
 const SignUp = () => {
   return (
     <>
-      <section className=" gap-[3rem] xl:px-[5rem] p-[1rem] w-full justify-center items-center h-screen fixed grid sm:px-[9rem] md:px-[13rem] xl:grid-cols-2 grid-cols-1 bg-white dark:bg-[#0a0a0a] ">
+      <section className=" gap-[3rem] xl:px-[5rem] p-[1rem] w-full  justify-center items-center h-screen lg:fixed grid sm:px-[9rem] md:px-[13rem] xl:grid-cols-2 grid-cols-1 bg-white dark:bg-[#0a0a0a] ">
         {/* Phase one  */}
         <section className=" w-full h-full xl:pr-[5rem]  flex flex-col  ">
           {/* logo*/}
           <div className=" flex items-center justify-between ">
             <div className=" flex items-center ">
-              <Image src={logo} width={30} height={30} alt="logo" />
-              <p className=" md:flex xl:hidden text-[17px] font-bold gap-1 flex items-center  ">
-                <span className="text-green-800">Gabriel</span>
-                <span className="text-red-500">Trading</span>
-                <span className="text-blue-600">Academy</span>
-              </p>
+              <Logo />
             </div>
             <div className=" xl:hidden">
               <ModeToggle />
@@ -26,9 +21,10 @@ const SignUp = () => {
           </div>
 
           {/* Sign up section */}
-          <section className="  w-full h-full gap-[5rem] -mt-[3rem] justify-center flex flex-col">
+          <section className="  w-full lg:h-full gap-[5rem] mt-[2rem] lg:mt-0 justify-center flex flex-col">
             <SignUpSubmitter />
           </section>
+
         </section>
       </section>
     </>

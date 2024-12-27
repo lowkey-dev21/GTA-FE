@@ -73,22 +73,19 @@ const LoginSubmitter = () => {
     e.preventDefault();
     if (!validationState.isValid) return;
 
-    try {
-      const formData: LoginFormI = {
-        emailOrUsername: formState.emailOrUsername,
-        password: formState.password,
-      };
 
-      // Wait for login to complete and store the result
-      await login(formData);
+    const formData: LoginFormI = {
+      emailOrUsername: formState.emailOrUsername,
+      password: formState.password,
+    };
 
-      // Only navigate if login was successful
-      router.push("/home");
+    // Wait for login to complete and store the result
+    const response = await login(formData);
 
-    } catch (error) {
-      console.error("Login error:", error);
-      // Handle error appropriately (show error message to user)
-    }
+    // Only navigate if login was successful
+    //@ts-expect-error: was not able to solve the types error
+    if (response?.data) return router.push("/home");
+
   };
 
   // Toggle password visibility
