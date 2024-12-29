@@ -6,7 +6,7 @@ import { useAuthCheck } from "../hooks/uesAuthCheck";
 import { ChevronRight } from "lucide-react";
 import User from "./User";
 
-const Auth = () => {
+const Auth = ({ dashboard }: { dashboard?: boolean }) => {
   const router = useRouter();
   const { isLoading, loadingUI, user } = useAuthCheck({
     LoadingComponent: AuthSkeleton,
@@ -19,10 +19,11 @@ const Auth = () => {
     <div className=" cursor-pointer">
       {user ? (
         <div className=" flex flex-col lg:flex-row  gap-[1rem] items-center">
-          <p className=" border rounded-md  dark:border-slate-600 border-slate-400  p-[2px] px-2 xl:flex items-center hidden ">
-            <span>Dashboard </span>
-            <ChevronRight />
-          </p>
+          {dashboard &&
+            <p onClick={() => router.push("/home/education")} className=" border rounded-md  p-[2px] px-2 xl:flex items-center hidden ">
+              <span>Dashboard </span>
+              <ChevronRight className="w-4 h-4" />
+            </p>}
 
           <User user={user} />
         </div>

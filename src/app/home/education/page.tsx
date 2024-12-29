@@ -1,10 +1,20 @@
 "use client";
-import { UserContext } from "@/contexts/userContext";
-import { useContext } from "react";
+import SideNav from "../components/SideNavbar";
+
 
 const EducationPage = () => {
-  const authUser: any = useContext<object>(UserContext);
-  return <div>{authUser.email}</div>;
+  return (
+    <>
+      <section className="flex w-full" >
+        <aside className=" fixed  w-[200px] h-screen sm:flex hidden pt-[5rem] px-7 border-r " >
+          <SideNav />
+        </aside>
+
+        <section className=" flex-1 " ></section>
+
+      </section>
+    </>
+  )
 };
 
 export default EducationPage;

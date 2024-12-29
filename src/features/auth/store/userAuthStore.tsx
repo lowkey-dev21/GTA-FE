@@ -44,6 +44,8 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
       set({ isLoggingIn: true });
       const res = await axiosInstance.post("/api/auth/login", formData);
       set({ authUser: res.data.user, isLoggingIn: false });
+      toaster.toastS(res.data.message)
+      return res
       // Return the response
     } catch (error: any) {
       // Re-throw to be handled by caller
@@ -66,17 +68,11 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
   },
 
 
-
   logout: async () => {
     try {
-      // Perform the logout API call
-      await axiosInstance.get("/api/auth/logout");
-
-      // Get the `checkAuth` function from the store
-      const { checkAuth } = userAuthStore.getState();
-
-      // Run `checkAuth` to verify the authentication state after logging out
-      checkAuth();
+      const res = await axiosInstance.post("/api/auth/logout", {});
+      toaster.toastS(res.data.message)
+      return res
     } catch (error: any) {
       toaster.toastE(error.response?.data.message)
     }

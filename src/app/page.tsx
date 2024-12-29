@@ -1,5 +1,5 @@
 "use client";
-import Header from "@/components/Header";
+import Header from "../components/Headers";
 import Hero from "@/components/Hero";
 import Logo from "@/components/Logo";
 import { ModeToggle } from "@/components/modeToggler";
@@ -14,7 +14,7 @@ const page = () => {
         logo={<Logo />}
         navLinks={navLinks}
         modeToggler={<ModeToggle />}
-        auth={<Auth />}
+        auth={<Auth dashboard={true} />}
       />
       <div className="w-full  pt-12 sm:pt-6 flex flex-col items-center">
         <Hero />

@@ -6,7 +6,7 @@ const Logo = () => {
   return (
     <div className="flex items-center gap-3">
       <Image
-        className="w-[35px] h-[35px] bg-contain"
+        className="w-[35px] mt-2 h-[35px] bg-contain"
         src={images.logo}
         alt="logo"
       />

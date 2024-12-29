@@ -84,13 +84,13 @@ const LoginSubmitter = () => {
 
     // Only navigate if login was successful
     //@ts-expect-error: was not able to solve the types error
-    if (response?.data) return router.push("/home");
+    if (response?.data) return router.push("/home/education");
 
   };
 
   // Toggle password visibility
   const togglePasswordVisibility = () => {
-    setFormState((prev) => ({
+    setFormState((prev: LoginFormI) => ({
       ...prev,
       isPasswordVisible: !prev.isPasswordVisible,
     }));
@@ -116,7 +116,7 @@ const LoginSubmitter = () => {
               className={`mt-2 w-full px-3 sm:p-3 py-4 border ${!validationState.isValid && formState.emailOrUsername
                 ? "border-red-400"
                 : "border-slate-400"
-                } rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-400 dark:focus:ring-blue-400 dark:text-slate-300 dark:bg-[black] dark:placeholder-slate-500`}
+                } rounded-md focus:outline-none  focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-400 dark:focus:ring-blue-400 dark:text-slate-300 dark:bg-[black] dark:placeholder-slate-500`}
               autoComplete="off"
             />
             {validationState.errorMessage && (

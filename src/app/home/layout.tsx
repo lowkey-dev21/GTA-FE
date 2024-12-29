@@ -4,6 +4,9 @@ import UserDataProvider from "@/contexts/userContext";
 import { useAuthCheck } from "@/features/auth/hooks/uesAuthCheck";
 import Loading from "@/components/Loader";
 import { redirect } from "next/navigation";
+import Header from "../home/components/Headers";
+
+
 
 const HomeLayout = ({ children }: { children: ReactNode }) => {
   const { isLoading, loadingUI, user } = useAuthCheck({
@@ -17,7 +20,11 @@ const HomeLayout = ({ children }: { children: ReactNode }) => {
     redirect("/auth/login");
   }
 
-  return <UserDataProvider>{children}</UserDataProvider>;
+  return (
+    <UserDataProvider>
+      <Header />
+      {children}
+    </UserDataProvider>);
 };
 
 export default HomeLayout;

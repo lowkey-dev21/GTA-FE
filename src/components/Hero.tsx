@@ -5,7 +5,9 @@ import { webName } from "@/constants";
 import { useAuthCheck } from "@/features/auth/hooks/uesAuthCheck";
 import HeroSkeleton from "@/skeleton/HeroSkeleton";
 
+
 const Hero = () => {
+
   //check auth
   const { isLoading, loadingUI, user } = useAuthCheck({
     LoadingComponent: HeroSkeleton,
@@ -14,9 +16,13 @@ const Hero = () => {
 
   if (isLoading) return loadingUI;
 
+
+
+
+
   return (
     <>
-      <section className=" font-latoRegular xl:py-[6rem] w-full flex-col  xl:flex-row  gap-[3rem] flex justify-between ">
+      <section className=" font-latoRegular  xl:py-[6rem] w-full flex-col  xl:flex-row  gap-[3rem] flex justify-between ">
         {/* first phase */}
         <section className=" w-full  xl:w-[50%]   ">
           {/* Update */}
