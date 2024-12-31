@@ -80,11 +80,13 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: Lato;
   }
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -162,6 +164,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: Lato;
@@ -170,10 +173,18 @@
 
 .outline-text {
   color: transparent;
-  -webkit-text-stroke: 2px #2563eb; /* Outline color in light mode */
+  -webkit-text-stroke: 2px #2563eb;
+  /* Outline color in light mode */
   text-shadow: none;
   /* font-weight: bolder; */
 }
+
 .dark .outline-text {
-  -webkit-text-stroke: 2px #2563eb; /* Outline color in dark mode */
+  -webkit-text-stroke: 2px #2563eb;
+  /* Outline color in dark mode */
+}
+
+.active {
+  color: white;
+  background: #3b82f6;
 }

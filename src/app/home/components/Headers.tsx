@@ -19,7 +19,7 @@ const sectionNavTitle: SectionTypes[] = [
   },
 ]
 
-const SideNav = () => {
+const Headers = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSection, setSelectedSection] = useState<any | null>(null);
 
@@ -106,4 +106,4 @@ const SideNav = () => {
   );
 };
 
-export default SideNav;
+export default Headers;

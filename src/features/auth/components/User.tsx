@@ -28,7 +28,7 @@ const UserDesktopTemplate = ({ user }: { user: UserData }) => {
   };
   return (
     <div className="flex items-center justify-between w-full gap-3">
-      <p className="text-gray-800 dark:text-white">{user.email}</p>
+      <p className="text-gray-800 dark:text-white">{user?.username || user?.email}</p>
       <div className="relative">
         <button
           onClick={() => setIsOpen((prev) => !prev)}
