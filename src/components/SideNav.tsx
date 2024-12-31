@@ -1,7 +1,7 @@
 import { useAuthCheck } from "@/features/auth/hooks/uesAuthCheck";
 import AuthSkeleton from "@/features/auth/skeleton/AuthSkeleton";
 import { HeaderItems } from "@/types/type";
-import { LogOut, Settings, User } from "lucide-react";
+import { ChevronRight, LogOut, Settings, User } from "lucide-react";
 import Link from "next/link";
 import React, { ReactNode } from "react";
 
@@ -25,8 +25,14 @@ const SideNav = ({
         <div className="font-semibold">{auth}</div>
         {user && (
           <div className="w-full mt-6  flex flex-col opacity-80  ">
+
             {/* Dropdown Menu */}
             <ul tabIndex={0} className=" w-full flex flex-col gap-[2rem] ">
+              <li><Link href={"/home/education"} className="  rounded-md  justify-between items-center  flex items-center ">
+                <span>Dashboard </span>
+                <ChevronRight className="w-5 h-5" />
+              </Link>
+              </li>
               <li>
                 <Link
                   href="/profile"

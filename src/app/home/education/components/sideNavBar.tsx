@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import Link from "next/link"
 import { usePathname } from 'next/navigation'
-import { GraduationCap, Inbox, LayoutDashboard, LibraryBig, UsersRound } from 'lucide-react'
+import { Globe, GraduationCap, Inbox, LayoutDashboard, LibraryBig, Star, UsersRound } from 'lucide-react'
 import { cn } from "@/lib/utils"
 
 interface NotificationI {
@@ -46,6 +46,13 @@ const SideNavbar = () => {
       icon: <Inbox className="w-4 h-4" />,
       notification: { title: "New video", type: "important", count: 200 }
     },
+    {
+      title: "Community",
+      link: "/home/education/community",
+      icon: <Globe className="w-4 h-4" />,
+      notification: { title: "New video", type: "important", count: 500 }
+    },
+
   ]
 
   const pathname = usePathname()
@@ -55,31 +62,42 @@ const SideNavbar = () => {
   }
 
   return (
-    <section className="flex w-[500px] px-4 flex-col justify-between mt-8">
-      <div className="w-full flex flex-col gap-5">
-        {navlinks.map((item) => (
-          <Link
-            key={item.title}
-            href={item.link}
-            className={cn(
-              "flex items-center justify-between gap-4 p-2 px-3 rounded-md transition-colors",
-              "hover:bg-gray-200 dark:hover:bg-[#2F2F2F]",
-              pathname === item.link && "bg-gray-200 dark:bg-[#2F2F2F]"
-            )}
-          >
-            <div className="flex items-center gap-2">
-              {item.icon}
-              <span>{item.title}</span>
-            </div>
-            {item.notification && item.notification.count > 0 && (
-              <div className="flex items-center justify-center text-white bg-red-500 rounded-full min-w-7 h-7 px-2 text-xs">
-                {formatNotificationCount(item.notification.count)}
+    <>
+      <section className="flex w-[500px] px-4 flex-col justify-between mb-5 mt-8">
+        <div className="w-full flex flex-col gap-5">
+          {navlinks.map((item) => (
+            <Link
+              key={item.title}
+              href={item.link}
+              className={cn(
+                "flex items-center justify-between gap-4 p-2 px-3 rounded-md transition-colors",
+                "hover:bg-blue-600 hover:text-white ",
+                pathname === item.link && " text-white bg-blue-600"
+              )}
+            >
+              <div className="flex items-center gap-2">
+                {item.icon}
+                <span>{item.title}</span>
               </div>
-            )}
-          </Link>
-        ))}
-      </div>
-    </section>
+              {item.notification && item.notification.count > 0 && (
+                <div className="flex items-center justify-center text-white bg-red-500 rounded-full min-w-7 h-7 px-2 text-xs">
+                  {formatNotificationCount(item.notification.count)}
+                </div>
+              )}
+            </Link>
+          ))}
+        </div>
+
+        <button
+          className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-600 transition-all"
+        >
+          <Star className="w-5 h-5" />
+          <span>Go Premium</span>
+        </button>
+      </section>
+
+    </>
+
   )
 }
 

@@ -1,12 +1,37 @@
 import Logo from '@/components/Logo';
 import React, { useState } from 'react';
-import { SectionTypes } from '../constants';
 import Link from "next/link"
-import { ChevronsUpDown, GraduationCap, Menu, Search, Slack, X } from 'lucide-react';
+import { ChevronsUpDown, GraduationCap, Menu, Search, Globe, Inbox, LayoutDashboard, LibraryBig, UsersRound, MessageSquare, UserPlus, Settings, Slack, X, User, LogOut } from 'lucide-react';
 import Auth from '@/features/auth/components/Auth';
 import { ModeToggle } from '@/components/modeToggler';
+import { usePathname } from 'next/navigation'
+import { cn } from "@/lib/utils"
 
-const sectionNavTitle: SectionTypes[] = [
+// Define interfaces for our types
+interface SectionType {
+  title: string;
+  link: string;
+  icon: React.ReactNode;
+}
+
+interface NotificationI {
+  title: string;
+  type: string;
+  count: number;
+}
+
+interface NavLink {
+  title: string;
+  link: string;
+  icon: React.ReactNode;
+  notification?: NotificationI
+}
+
+interface SectionNavLinks {
+  [key: string]: NavLink[];
+}
+
+const sectionNavTitle: SectionType[] = [
   {
     title: "Education",
     link: "/home/education",
@@ -17,90 +42,202 @@ const sectionNavTitle: SectionTypes[] = [
     link: "/home/socials",
     icon: <Slack className='w-4 h-4' />
   },
-]
+];
 
-const Headers = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedSection, setSelectedSection] = useState<any | null>(null);
+const profileLinks = [
+  {
+    title: "View Profile",
+    link: "/profile",
+    icon: <User className="w-4 h-4" />
+  },
+  {
+    title: "Settings",
+    link: "/settings",
+    icon: <Settings className="w-4 h-4" />
+  },
+  {
+    title: "Logout",
+    link: "/logout",
+    icon: <LogOut className="w-4 h-4" />
+  }
+];
 
-  const handleSectionClick = (section: any) => {
+// Section-specific navigation links
+const sectionNavLinks: SectionNavLinks = {
+  Education: [
+    {
+      title: "Dashboard",
+      link: "/home/education",
+      icon: <LayoutDashboard className="w-4 h-4" />,
+    },
+    {
+      title: "School",
+      link: "/home/education/school",
+      icon: <GraduationCap className="w-4 h-4" />,
+      notification: { title: "New video", type: "important", count: 4 }
+    },
+    {
+      title: "Library",
+      link: "/home/education/library",
+      icon: <LibraryBig className="w-4 h-4" />,
+    },
+    {
+      title: "Tutors",
+      link: "/home/education/tutors",
+      icon: <UsersRound className="w-4 h-4" />,
+    },
+    {
+      title: "Inbox",
+      link: "/home/education/inbox",
+      icon: <Inbox className="w-4 h-4" />,
+      notification: { title: "New video", type: "important", count: 200 }
+    },
+    {
+      title: "Community",
+      link: "/home/education/community",
+      icon: <Globe className="w-4 h-4" />,
+      notification: { title: "New video", type: "important", count: 500 }
+    },
+  ],
+  Socials: [
+    { title: "Chat", link: "/home/socials/chat", icon: <MessageSquare className="w-4 h-4" /> },
+    { title: "Connections", link: "/home/socials/connections", icon: <UserPlus className="w-4 h-4" /> },
+    { title: "Profile", link: "/home/socials/profile", icon: <Settings className="w-4 h-4" /> }
+  ]
+};
+
+const Headers: React.FC = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedSection, setSelectedSection] = useState<SectionType>(sectionNavTitle[0]);
+  const [toggle, setToggle] = useState<boolean>(false);
+
+  const pathname = usePathname()
+
+  const handleSectionClick = (section: SectionType): void => {
     setSelectedSection(section);
-    setIsOpen(false); // Close the dropdown after selection
+    setIsOpen(false);
   };
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (): void => {
     setIsOpen(!isOpen);
   };
 
-  const [toggle, setToggle] = useState<boolean>(false);
+  const renderSectionNav = (): React.ReactNode => {
+    const links = sectionNavLinks[selectedSection.title];
+
+    if (!links) return null;
+
+    return (
+      <div className="flex flex-col gap-2 mt-4">
+        {/* Section-specific links */}
+        {links.map((link: NavLink) => (
+          <Link
+            href={link.link}
+            key={link.link}
+            className={cn(
+              "flex items-center gap-4 p-2 px-3 rounded-md transition-colors",
+              "hover:bg-blue-600 hover:text-white",
+              pathname === link.link && "text-white bg-blue-600"
+            )}
+          >
+            {link.icon}
+            <span>{link.title}</span>
+            {link.notification && (
+              <span className="ml-auto bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+                {link.notification.count}
+              </span>
+            )}
+          </Link>
+        ))}
+
+        {/* Divider */}
+        <div className="border-t my-4" />
+
+        {/* Profile-related links */}
+        {profileLinks.map((link) => (
+          <Link
+            href={link.link}
+            key={link.link}
+            className={
+              "flex items-center gap-4 p-2 px-3 rounded-md transition-colors hover:dark:bg-[#2F2F2F] hover:bg-gray-100"
+            }
+          >
+            {link.icon}
+            <span>{link.title}</span>
+          </Link>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <>
       <section className="w-full">
         {/* Top navigation */}
-        <nav className="w-full  border-b  z-[1000]  justify-between flex items-center px-5 py-3 fixed  h-[70px] bg-white dark:bg-[#0A0A0A]">
+        <nav className="w-full border-b z-[1000] justify-between flex items-center px-5 py-3 fixed h-[70px] bg-white dark:bg-[#0A0A0A]">
           <div className="flex items-center gap-3 justify-start">
             <Logo />
             <button
-              className=" border rounded-md  gap-2  p-[2px] px-2 flex  items-center  focus:outline-none"
+              className="border rounded-md gap-2 p-[2px] px-2 flex items-center focus:outline-none"
               onClick={toggleDropdown}
             >
-              <div>
-                {selectedSection ? selectedSection.title : 'Education'}
-              </div>
-              <ChevronsUpDown className=' h-4 w-4' />
+              <div>{selectedSection.title}</div>
+              <ChevronsUpDown className='h-4 w-4' />
             </button>
           </div>
 
-          <label className="input input-bordered sm:flex hidden bg-white dark:bg-[#0A0A0A] border border-gray-500  h-[34px] items-center gap-2">
-            <input type="text" className="grow  " placeholder="Search" />
-            <Search className=" h-4 w-4 text-gray-300  " />
+          <label className="input input-bordered sm:flex hidden bg-white dark:bg-[#0A0A0A] border border-gray-500 h-[34px] items-center gap-2">
+            <input type="text" className="grow" placeholder="Search" />
+            <Search className="h-4 w-4 text-gray-300" />
           </label>
 
-
-
-          <div className='flex items-center gap-2 ' >
-            <div className=' md:flex hidden ' >
+          <div className='flex items-center gap-2'>
+            <div className='sm:flex hidden'>
               <Auth />
-
             </div>
-            <div className=' flex sm:hidden border p-2 rounded-md ' >
-              <Search className=' h-5 w-5  ' />
+            <div className='flex sm:hidden border p-2 rounded-md'>
+              <Search className='h-5 w-5' />
             </div>
             <ModeToggle />
             <button
-              className=" md:hidden  "
+              className="sm:hidden"
               onClick={() => setToggle((prev) => !prev)}
             >
-              {" "}
               {toggle ? <X /> : <Menu />}
             </button>
-
           </div>
-
-
-
-
-
         </nav>
 
         {/* Section Selection Dropdown */}
-        {/* Section Selection Dropdown */}
         {isOpen && (
-          <div className="absolute top-[55px] z-[1000] flex flex-col justify-start left-[67px] w-[150px] p-1 border rounded-md bg-white dark:bg-[#0A0A0A] shadow-md">
-            {sectionNavTitle.map((section: SectionTypes) => (
+          <div className="absolute top-[60px] z-[1000] flex flex-col justify-start left-[67px] w-[150px] p-1 border rounded-md bg-white dark:bg-[#0A0A0A] shadow-md">
+            {sectionNavTitle.map((section: SectionType) => (
               <Link
                 href={section.link}
                 key={section.link}
                 className="cursor-pointer hover:bg-gray-100 flex justify-start items-center gap-2 hover:dark:bg-[#2F2F2F] rounded-md px-2 py-2"
                 onClick={() => handleSectionClick(section)}
               >
-                <span>{section.icon}</span> <span>{section.title}</span>
+                <span>{section.icon}</span>
+                <span>{section.title}</span>
               </Link>
             ))}
           </div>
         )}
 
+        {/* Mobile Sidebar */}
+        {toggle && (
+          <>
+            <section className="w-[60%]  flex-col py-6 px-6 flex sm:hidden z-[100] right-0 border-l h-screen fixed pt-[5rem] bg-white dark:bg-[#0A0A0A]">
+              <Auth />
+              {renderSectionNav()}
+            </section>
+            <div
+              onPointerEnter={() => setToggle((prev) => !prev)}
+              className="w-full sm:hidden fixed h-screen z-[10] bg-gray-500 dark:bg-gray-900 opacity-85"
+            />
+          </>
+        )}
       </section>
     </>
   );

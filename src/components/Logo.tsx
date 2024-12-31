@@ -1,10 +1,11 @@
 import { images, webName } from "@/constants";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Logo = () => {
   return (
-    <div className="flex items-center gap-3">
+    <Link href={"/"} className="flex items-center gap-3">
       <Image
         className="w-[35px] mt-2 h-[35px] bg-contain"
         src={images.logo}
@@ -15,7 +16,7 @@ const Logo = () => {
         <span className=" text-danger-600  "> {webName[1]} </span>
         <span className="text-initialPrimary-500 "> {webName[2]} </span>
       </div>
-    </div>
+    </Link>
   );
 };
 

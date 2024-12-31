@@ -15,7 +15,7 @@ const Header = ({ logo, navLinks, auth, modeToggler }: HeaderProps) => {
       <section className=" w-full py-3  flex items-center justify-between z-[4000] sticky top-0 bg-white dark:bg-neutral-950 ">
         <div className="">{logo}</div>
 
-        <div className="xl:flex  flex-row items-center gap-[4rem] hidden">
+        <div className="lg:flex  flex-row items-center lg:gap-[3rem] xl:gap-[4rem] hidden">
           {navLinks?.map((items) => (
             <Link
               className="hover:opacity-80 "
@@ -29,10 +29,11 @@ const Header = ({ logo, navLinks, auth, modeToggler }: HeaderProps) => {
         </div>
 
         <div className=" flex gap-[0.5rem]  items-center justify-end ">
-          <div className=" xl:flex hidden  ">{auth}</div>
+          <div className=" lg:flex hidden  ">{auth}</div>
+
           <div className="hover:opacity-80 ">{modeToggler}</div>
           <button
-            className=" xl:hidden  "
+            className=" lg:hidden  "
             onClick={() => setToggle((prev) => !prev)}
           >
             {" "}

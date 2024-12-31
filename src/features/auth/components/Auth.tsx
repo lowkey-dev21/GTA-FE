@@ -20,7 +20,7 @@ const Auth = ({ dashboard }: { dashboard?: boolean }) => {
       {user ? (
         <div className=" flex flex-col lg:flex-row  gap-[1rem] items-center">
           {dashboard &&
-            <p onClick={() => router.push("/home/education")} className=" border rounded-md  p-[2px] px-2 xl:flex items-center hidden ">
+            <p onClick={() => router.push("/home/education")} className=" border rounded-md  p-[2px] px-2 lg:flex items-center hidden ">
               <span>Dashboard </span>
               <ChevronRight className="w-4 h-4" />
             </p>}
