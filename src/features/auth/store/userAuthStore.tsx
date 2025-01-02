@@ -42,7 +42,11 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
   login: async (formData) => {
     try {
       set({ isLoggingIn: true });
-      const res = await axiosInstance.post("/api/auth/login", formData);
+      const res = await axiosInstance.post("/api/auth/login", formData,{
+        method: 'POST', 
+        headers: {
+        'Content-Type': 'application/json'
+      },});
       set({ authUser: res.data.user, isLoggingIn: false });
       toaster.toastS(res.data.message)
       return res
