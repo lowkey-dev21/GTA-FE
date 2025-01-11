@@ -23,6 +23,7 @@ const HomeLayout = ({ children }: { children: ReactNode }) => {
   return (
     <UserDataProvider>
       <Header />
+
       {children}
     </UserDataProvider>);
 };

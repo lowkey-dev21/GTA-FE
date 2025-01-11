@@ -57,7 +57,7 @@ const UserDesktopTemplate = ({ user }: { user: UserData }) => {
             </li>
             <li className="dark:border-gray-700">
               <Link
-                href="/settings"
+                href="/home/settings"
                 className="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-md dark:hover:bg-[#2F2F2F] text-gray-800 dark:text-white"
               >
                 <Settings className="w-4 h-4" />

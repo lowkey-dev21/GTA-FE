@@ -1,7 +1,7 @@
 import Logo from '@/components/Logo';
 import React, { useState } from 'react';
 import Link from "next/link"
-import { ChevronsUpDown, GraduationCap, Menu, Search, Globe, Inbox, LayoutDashboard, LibraryBig, UsersRound, MessageSquare, UserPlus, Settings, Slack, X, User, LogOut } from 'lucide-react';
+import { ChevronsUpDown, GraduationCap, Menu, Search, Globe, Inbox, LayoutDashboard, LibraryBig, UsersRound, MessageSquare, UserPlus, Settings, Slack, X, User, LogOut, Star } from 'lucide-react';
 import Auth from '@/features/auth/components/Auth';
 import { ModeToggle } from '@/components/modeToggler';
 import { usePathname } from 'next/navigation'
@@ -127,8 +127,14 @@ const Headers: React.FC = () => {
 
     if (!links) return null;
 
+    const formatNotificationCount = (count: number) => {
+      return count > 99 ? "99+" : count.toString()
+    }
+  
+
     return (
-      <div className="flex flex-col gap-2 mt-4">
+      <>
+      <div className="flex flex-col sm:hidden gap-2 mt-4">
         {/* Section-specific links */}
         {links.map((link: NavLink) => (
           <Link
@@ -167,6 +173,44 @@ const Headers: React.FC = () => {
           </Link>
         ))}
       </div>
+
+
+        {/* desktop navbar */}
+        <section className=" sm:flex w-[500px] hidden px-4 flex-col justify-between mb-5 mt-8">
+        <div className="w-full flex flex-col gap-5">
+          {links.map((item) => (
+            <Link
+              key={item.title}
+              href={item.link}
+              className={cn(
+                "flex items-center justify-between gap-4 p-2 px-3 rounded-md transition-colors",
+                "hover:bg-blue-600 hover:text-white ",
+                pathname === item.link && " text-white bg-blue-600"
+              )}
+            >
+              <div className="flex items-center gap-2">
+                {item.icon}
+                <span>{item.title}</span>
+              </div>
+              {item.notification && item.notification.count > 0 && (
+                <div className="flex items-center justify-center text-white bg-red-500 rounded-full min-w-7 h-7 px-2 text-xs">
+                  {formatNotificationCount(item.notification.count)}
+                </div>
+              )}
+            </Link>
+          ))}
+        </div>
+
+        <button
+          className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-600 transition-all"
+        >
+          <Star className="w-5 h-5" />
+          <span>Go Premium</span>
+        </button>
+      </section>
+
+      </>
+
     );
   };
 
@@ -176,7 +220,7 @@ const Headers: React.FC = () => {
         {/* Top navigation */}
         <nav className="w-full border-b z-[1000] justify-between flex items-center px-5 py-3 fixed h-[70px] bg-white dark:bg-[#0A0A0A]">
           <div className="flex items-center gap-3 justify-start">
-            <Logo />
+            <Logo href="/home/education" />
             <button
               className="border rounded-md gap-2 p-[2px] px-2 flex items-center focus:outline-none"
               onClick={toggleDropdown}
@@ -228,7 +272,7 @@ const Headers: React.FC = () => {
         {/* Mobile Sidebar */}
         {toggle && (
           <>
-            <section className="w-[60%]  flex-col py-6 px-6 flex sm:hidden z-[100] right-0 border-l h-screen fixed pt-[5rem] bg-white dark:bg-[#0A0A0A]">
+            <section className="w-[60%]  flex-col py-6 px-6 flex  z-[100] right-0 border-l h-screen fixed pt-[5rem] bg-white dark:bg-[#0A0A0A]">
               <Auth />
               {renderSectionNav()}
             </section>
@@ -239,6 +283,10 @@ const Headers: React.FC = () => {
           </>
         )}
       </section>
+
+      <aside className="hidden sm:flex fixed dark:bg-[#0A0A0A] bg-white w-56 h-screen pt-14 border-r">
+        {renderSectionNav()}
+      </aside>
     </>
   );
 };

@@ -11,7 +11,7 @@ const page = () => {
   return (
     <ScreenWrapper>
       <Header
-        logo={<Logo />}
+        logo={<Logo href="/" />}
         navLinks={navLinks}
         modeToggler={<ModeToggle />}
         auth={<Auth dashboard={true} />}

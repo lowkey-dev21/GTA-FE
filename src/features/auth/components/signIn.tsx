@@ -11,7 +11,7 @@ const LogIn = () => {
             <LoginSubmitter />
           </section>
         </section>
-      </section>
+      </section> 
     </>
   );
 };

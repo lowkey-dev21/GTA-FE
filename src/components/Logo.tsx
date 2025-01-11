@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Logo = () => {
+const Logo = ({ href }: { href: string }) => {
   return (
-    <Link href={"/"} className="flex items-center gap-3">
+    <Link href={href} className="flex items-center gap-3">
       <Image
         className="w-[35px] mt-2 h-[35px] bg-contain"
         src={images.logo}

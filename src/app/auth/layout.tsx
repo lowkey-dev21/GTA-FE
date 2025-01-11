@@ -7,7 +7,7 @@ const layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="">
       <div className="">
-        <Headers logo={<Logo />} modeToggler={<ModeToggle />} />
+        <Headers logo={<Logo href="/home/education" />} modeToggler={<ModeToggle />} />
         {children}
       </div>
     </div>
