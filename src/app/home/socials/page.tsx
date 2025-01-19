@@ -1,8 +1,9 @@
+import Posts from '@/features/blog/components/Posts'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div><Posts /></div>
   )
 }
 
