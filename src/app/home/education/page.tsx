@@ -41,6 +41,7 @@ const DashboardPage = () => {
                 Welcome Back, {user.firstName}!
               </h1>
               <div className="flex items-center gap-4">
+                {user && 
                 <Avatar className="h-16 w-16">
                   <AvatarImage
                     className="h-full w-full object-cover rounded-full"
@@ -52,6 +53,7 @@ const DashboardPage = () => {
                     {user?.lastName[0]}
                   </AvatarFallback>
                 </Avatar>
+                }
                 <div>
                   <h2 className="text-base sm:text-lg font-semibold">
                     @{user?.username}

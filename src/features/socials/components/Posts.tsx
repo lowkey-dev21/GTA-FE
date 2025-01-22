@@ -6,6 +6,7 @@ import axiosInstance from '@/services/api'
 import { Post } from '../types/post'
 import avatar from "../../../../public/assets/avatar.png";// Add a default avatar image to your public folder
 
+
 // Add stories data
 
 const followers = [
@@ -57,14 +58,14 @@ const Posts = () => {
 
   return (
     <div className="justify flex-1 space-y-4 pt-[5rem] lg:px-6 sm:ml-56">
-      <div className='max-w-[1500px] mx-auto flex gap-[3rem]'>
-        <div className='w-full'>
-          <div className='flex mx-auto flex-col sm:px-[4rem]'>
+      <div className='max-w-[1500px] mx-auto flex gap-[3rem]  '>
+        <div className='w-full  '>
+          <div className='flex mx-auto flex-col sm:px-[5rem] lg:px-[15rem] '>
             {posts.map((post: Post) => (
-              <div key={post._id} className="border-b p-4 space-y-3">
+              <div key={post._id} className=" p-4 space-y-3">
                 {/* Author Info */}
                 <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full overflow-hidden relative bg-gray-200">
+                  <div className="h-10 w-10 rounded-full overflow-hidden relative bg-gray-200">
                     <Image
                       src={getProfilePicture(post.profilePicture)}
                       alt={post.author || 'user'}
@@ -75,17 +76,21 @@ const Posts = () => {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-medium">{post.author}</span>
+                    <span className="font-medium ">{post.author}</span>
                     <span className="text-sm text-gray-500">{post.fullName}</span>
                   </div>
                 </div>
 
                 {/* Post Content */}
-                <h2 className="text-xl font-semibold">{post.title}</h2>
-                <p className="text-gray-600 dark:text-gray-300">{post.content}</p>
+                <div className=' ml-6 flex flex-col gap-2 border-b pb-4  '>
+
+                {post?.title && ( <h2 className="font-semibold">{post?.title || ""}</h2>)}
+                <p className="text-gray-600 text-xl dark:text-gray-300">{post?.content}</p>
+              
+    
 
                 {/* Post Stats */}
-                <div className="flex items-center gap-4 text-sm text-gray-500">
+                <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
                   <div className="flex items-center gap-1">
                     <Heart className="w-5 h-5" />
                     <span>{post.likesCount} likes</span>
@@ -95,6 +100,7 @@ const Posts = () => {
                     <span>{post.comments?.length || 0} comments</span>
                   </div>
                 </div>
+              </div>
               </div>
             ))}
           </div>

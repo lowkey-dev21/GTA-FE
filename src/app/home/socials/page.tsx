@@ -1,4 +1,4 @@
-import Posts from '@/features/blog/components/Posts'
+import Posts from '@/features/socials/components/Posts'
 import React from 'react'
 
 const page = () => {

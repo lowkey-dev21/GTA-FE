@@ -177,7 +177,7 @@ const Headers: React.FC = () => {
 
           {/* Rest of sidebar content */}
           <div className="flex flex-col gap-2">
-            <Link href="/home/socials/profile" className="flex items-center gap-4 p-2 px-3  transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
+            <Link href="/home/socials/profile" className="flex  items-center gap-4 p-2 px-3  transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
               <User className="w-4 h-4" />
               <span>View Profile</span>
             </Link>
