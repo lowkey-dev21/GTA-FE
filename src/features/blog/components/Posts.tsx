@@ -64,17 +64,7 @@ const Posts = () => {
               <div key={post._id} className="border-b p-4 space-y-3">
                 {/* Author Info */}
                 <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 fn first_word(s: &String) -> usize {
-    let bytes = s.as_bytes();
-
-    for(i, &item) in bytes.iter().enumerate() {
-        if item == b' ' {
-            return i;
-        }
-    }
-
-    s.len()
-}rounded-full overflow-hidden relative bg-gray-200">
+                  <div className="h-8 w-8 rounded-full overflow-hidden relative bg-gray-200">
                     <Image
                       src={getProfilePicture(post.profilePicture)}
                       alt={post.author || 'user'}

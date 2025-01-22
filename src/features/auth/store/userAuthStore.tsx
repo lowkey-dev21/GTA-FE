@@ -2,7 +2,7 @@ import { create } from "zustand"
 import { LoginFormI, SignUpFromI } from "../types/types";
 import axiosInstance from "@/services/api";
 import { toaster } from "@/config/config";
-
+import {AxiosResponse} from "axios";
 
 
 
@@ -16,7 +16,7 @@ interface UserAuthStoreTypes {
   //loggedIn: boolean;
 
   checkAuth: () => void;
-  login: (formData: LoginFormI) => void;
+  login: (formData: LoginFormI) => Promise<AxiosResponse<any, any> | undefined>;
   signUp: (formaData: SignUpFromI) => void;
   logout: () => void
 }
@@ -39,14 +39,10 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
     }
   },
 
-  login: async (formData) => {
+  login: async (formData: LoginFormI) =>  {
     try {
       set({ isLoggingIn: true });
-      const res = await axiosInstance.post("/api/auth/login", formData,{
-        method: 'POST', 
-        headers: {
-        'Content-Type': 'application/json'
-      },});
+      const res = await axiosInstance.post("/api/auth/login", formData);
       set({ authUser: res.data.user, isLoggingIn: false });
       toaster.toastS(res.data.message)
       return res

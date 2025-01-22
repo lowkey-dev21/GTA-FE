@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-
 const Headers = ({ logo, modeToggler }: { logo: ReactNode, modeToggler: ReactNode }) => {
   return (
     <>

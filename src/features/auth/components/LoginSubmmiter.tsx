@@ -1,4 +1,5 @@
 "use client";
+import React from "react"
 import { useState, useEffect, useCallback } from "react";
 import { userAuthStore } from "../store/userAuthStore";
 import { Eye, EyeOff, Loader } from "lucide-react";
@@ -83,7 +84,6 @@ const LoginSubmitter = () => {
     const response = await login(formData);
 
     // Only navigate if login was successful
-    //@ts-expect-error: was not able to solve the types error
     if (response?.data) return router.push("/home/education");
 
   };
