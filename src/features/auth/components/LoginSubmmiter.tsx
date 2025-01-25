@@ -9,6 +9,7 @@ import { LoginFormI } from "../types/types";
 
 
 
+
 // Custom email validation function
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

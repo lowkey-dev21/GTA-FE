@@ -1,3 +1,4 @@
+
 "use client";
 import { HeaderProps } from "@/types/type";
 import { Menu, X } from "lucide-react";

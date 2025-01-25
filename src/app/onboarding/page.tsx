@@ -8,6 +8,7 @@ import { useAuthCheck } from '@/features/auth/hooks/uesAuthCheck';
 import OnboardingFormSkeleton from './components/OnboardingSkeleton';
 import { useRouter } from 'next/navigation';
 import Image from "next/image"
+import  Cookie from  "js-cookie"
 
 type Step = 1 | 2 | 3 | 4;
 
@@ -105,19 +106,23 @@ const OnboardingForm = () => {
 
     // Make the API call for the skipped step
     let response;
+    const token = Cookie.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     try {
       switch (step) {
         case 1:
-          response = await axiosInstance.post('/api/onboard/skip-onboard-one', {});
+          response = await axiosInstance.post('/api/onboard/skip-onboard-one', config);
           break;
         case 2:
-          response = await axiosInstance.post('/api/onboard/skip-onboard-two', {});
+          response = await axiosInstance.post('/api/onboard/skip-onboard-two', config);
           break;
         case 3:
-          response = await axiosInstance.post('/api/onboard/skip-onboard-three', {});
+          response = await axiosInstance.post('/api/onboard/skip-onboard-three', config);
           break;
         case 4:
-          response = await axiosInstance.post('/api/onboard/skip-all', {});
+          response = await axiosInstance.post('/api/onboard/skip-all', config);
           break;
         default:
           throw new Error('Invalid step');

@@ -3,7 +3,7 @@ import { LoginFormI, SignUpFromI } from "../types/types";
 import axiosInstance from "@/services/api";
 import { toaster } from "@/config/config";
 import {AxiosResponse} from "axios";
-
+import Cookie from "js-cookie"
 
 
 interface UserAuthStoreTypes {
@@ -31,7 +31,11 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
 
   checkAuth: async () => {
     try {
-      const res = await axiosInstance.get("/api/auth/check-auth");
+      const token = Cookie.get("token");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+      const res = await axiosInstance.get("/api/auth/check-auth",config);
       set({ authUser: res.data.user, isCheckingAuth: false });
     } catch (error: any) {
       console.log(error);
@@ -44,6 +48,8 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
       set({ isLoggingIn: true });
       const res = await axiosInstance.post("/api/auth/login", formData);
       set({ authUser: res.data.user, isLoggingIn: false });
+
+      Cookie.set("token",res.data.token)
       toaster.toastS(res.data.message)
       return res
       // Return the response

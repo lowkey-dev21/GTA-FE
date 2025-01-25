@@ -35,7 +35,7 @@ const DashboardPage = () => {
 
         <div className="px-4 sm:px-6 py-6 max-w-7xl mx-auto">
           <div className="space-y-6">
-            {/* Welcome Section */}
+            {/* Start Section */}
             <div className="rounded-md border p-4 sm:p-6">
               <h1 className="mb-4 text-lg sm:text-xl">
                 Welcome Back, {user.firstName}!
