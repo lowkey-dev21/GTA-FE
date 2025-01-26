@@ -48,8 +48,8 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
       set({ isLoggingIn: true });
       const res = await axiosInstance.post("/api/auth/login", formData);
       set({ authUser: res.data.user, isLoggingIn: false });
-
       Cookie.set("token",res.data.token)
+      // console.log(res.data.token)
       toaster.toastS(res.data.message)
       return res
       // Return the response
@@ -64,6 +64,7 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
   signUp: async (formData: SignUpFromI) => {
     try {
       const response = await axiosInstance.post("/api/auth/sign-up", formData);
+      Cookie.set("token", response.data.token)
       console.log(response.data);// Log the response to see what is returned
       toaster.toastS(response.data.message)
       return response
@@ -76,9 +77,7 @@ export const userAuthStore = create<UserAuthStoreTypes>()((set) => ({
 
   logout: async () => {
     try {
-      const res = await axiosInstance.post("/api/auth/logout", {});
-      toaster.toastS(res.data.message)
-      return res
+      Cookie.remove("token")
     } catch (error: any) {
       toaster.toastE(error.response?.data.message)
     }

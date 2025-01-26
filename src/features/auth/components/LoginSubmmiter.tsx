@@ -99,7 +99,7 @@ const LoginSubmitter = () => {
 
   return (
     <section>
-      <h1 className="text-3xl font-bold text-center">Welcome Back</h1>
+      <h1 className="text-3xl mt-[6rem] sm:mt-0 font-bold text-center">Welcome Back</h1>
       <p className="mt-9 text-center font-light">
         Please enter your account details
       </p>

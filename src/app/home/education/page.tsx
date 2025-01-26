@@ -15,9 +15,9 @@ const DashboardPage = () => {
   }
 
   const getSkillLevel = () => {
-    if (user.expert) return "Expert";
-    if (user.amateur) return "Amateur";
-    if (user.beginner) return "Beginner";
+    if (user?.level?.expert) return "Expert";
+    if (user?.level?.amateur) return "Amateur";
+    if (user?.level?.beginner) return "Beginner";
     return "Not Set";
   };
 
@@ -55,7 +55,7 @@ const DashboardPage = () => {
                 </Avatar>
                 }
                 <div>
-                  <h2 className="text-base sm:text-lg font-semibold">
+                  <h2 className=" text-base sm:text-lg font-semibold">
                     @{user?.username}
                   </h2>
                   <div className="flex items-center gap-2">

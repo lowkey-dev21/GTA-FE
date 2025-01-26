@@ -13,7 +13,6 @@ export interface Post {
   createdAt: string;
   author: string
 profilePicture: string,
-fullName: string,
   images: string;
   liked: boolean;
   likes: string[];

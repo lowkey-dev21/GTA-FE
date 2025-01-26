@@ -107,6 +107,7 @@ const OnboardingForm = () => {
     // Make the API call for the skipped step
     let response;
     const token = Cookie.get("token");
+    // console.log("this is the token:",token)
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
@@ -122,7 +123,9 @@ const OnboardingForm = () => {
           response = await axiosInstance.post('/api/onboard/skip-onboard-three', config);
           break;
         case 4:
+          console.log("this the token:" ,token)
           response = await axiosInstance.post('/api/onboard/skip-all', config);
+          console.log(response)
           break;
         default:
           throw new Error('Invalid step');
@@ -141,25 +144,30 @@ const OnboardingForm = () => {
 
     try {
       let response;
+      const token = Cookie.get("token");
+      // console.log("this is the token:",token)
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
       switch (currentStep) {
         case 1:
-          response = await axiosInstance.post('/api/onboard/username', { username: formData.username });
+          response = await axiosInstance.post('/api/onboard/username', { username: formData.username },config);
           toaster.toastS(response?.data?.message);
           break;
         case 2:
-          response = await axiosInstance.post('/api/onboard/phone', { phoneNumber: formData.phoneNumber });
+          response = await axiosInstance.post('/api/onboard/phone', { phoneNumber: formData.phoneNumber },config);
           toaster.toastS(response?.data?.message);
           break;
         case 3:
-          response = await axiosInstance.post('/api/onboard/country', { country: formData.country });
+          response = await axiosInstance.post('/api/onboard/country', { country: formData.country },config);
           toaster.toastS(response?.data?.message);
           break;
         case 4:
           if (formData.profilePicture) {
             const payload = new FormData();
-            payload.append('profilePicture', formData.profilePicture);
+            payload.append('profilePicture', formData?.profilePicture || {});
             response = await axiosInstance.post('/api/onboard/profile-picture', payload, {
-              headers: { 'Content-Type': 'multipart/form-data' },
+              headers: {Authorization: `Bearer ${token}`,'Content-Type': 'multipart/form-data' },
             });
             toaster.toastS(response?.data?.message);
             if (response?.data) {
@@ -199,7 +207,7 @@ const OnboardingForm = () => {
       'w-full p-2 border bg-white dark:bg-[#0A0A0A] rounded-lg outline-none focus:ring-1 focus:ring-blue-500';
 
     switch (step) {
-      case 1: if (!user.starter.onboard1) {
+      case 1: if (!user?.starter?.onboard1) {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Choose your username</h2>
@@ -224,7 +232,7 @@ const OnboardingForm = () => {
           </div>
         )
       }
-      case 2: if (!user.starter.onboard2) {
+      case 2: if (!user?.starter?.onboard2) {
         return (
           <div className="space-y-4  ">
             <h2 className="text-2xl font-bold">Add your phone number</h2>
@@ -246,7 +254,7 @@ const OnboardingForm = () => {
           </div>
         );
       }
-      case 3: if (!user.starter.onboard3) {
+      case 3: if (!user?.starter?.onboard3) {
         return (
           < div className="space-y-4" >
             <h2 className="text-2xl font-bold">Select your country</h2>
@@ -272,12 +280,12 @@ const OnboardingForm = () => {
           </div >
         );
       }
-      case 4: if (!user.starter.completed) {
+      case 4: if (!user?.starter?.completed) {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Add a profile picture</h2>
             <div className="flex flex-col items-center space-y-4">
-              <div className="w-32 h-32 rounded-full flex items-center justify-center">
+              <div className="w-[50px] h-[50px] rounded-full flex items-center justify-center">
                 {formData.profilePicture ? (
                   <Image
                     layout='fill'
@@ -312,7 +320,7 @@ const OnboardingForm = () => {
 
 
 
-  if (!user.starter.completed) {
+  if (!user?.starter?.completed) {
     return (
 
       <div className="min-h-screen  bg-white dark:bg-[#0A0A0A] flex items-center justify-center p-4">

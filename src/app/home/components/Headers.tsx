@@ -2,7 +2,7 @@
 import Logo from '@/components/Logo';
 import React, { useState, useEffect } from 'react';
 import Link from "next/link"
-import { ChevronsUpDown, GraduationCap, Menu, Search, Globe, Inbox, LayoutDashboard, LibraryBig, UsersRound, MessageSquare, UserPlus, Settings, Slack, X, User, LogOut, Star, Home, Bell } from 'lucide-react';
+import { ChevronsUpDown, GraduationCap, BadgePlus, Menu, Search, Globe, Inbox, LayoutDashboard, LibraryBig, UsersRound, MessageSquare, UserPlus, Settings, Slack, X, User, LogOut, Star, Home, Bell } from 'lucide-react';
 import Auth from '@/features/auth/components/Auth';
 import { ModeToggle } from '@/components/modeToggler';
 import { usePathname } from 'next/navigation'
@@ -40,7 +40,7 @@ const sectionNavTitle: SectionType[] = [
   },
   {
     title: "Socials",
-    link: "/home/socials",
+    link: "/home/socials/posts",
     icon: <Slack className='w-4 h-4' />
   },
 ];
@@ -69,42 +69,43 @@ const sectionNavLinks: SectionNavLinks = {
     {
       title: "Dashboard",
       link: "/home/education",
-      icon: <LayoutDashboard className="w-4 h-4" />,
+      icon: <LayoutDashboard className="w-5 h-5" />,
     },
     {
       title: "School",
       link: "/home/education/school",
-      icon: <GraduationCap className="w-4 h-4" />,
+      icon: <GraduationCap className="w-5 h-5" />,
       notification: { title: "New video", type: "important", count: 4 }
     },
     {
       title: "Library",
       link: "/home/education/library",
-      icon: <LibraryBig className="w-4 h-4" />,
+      icon: <LibraryBig className="w-5 h-5" />,
     },
     {
       title: "Tutors",
       link: "/home/education/tutors",
-      icon: <UsersRound className="w-4 h-4" />,
+      icon: <UsersRound className="w-5 h-5" />,
     },
     {
       title: "Inbox",
       link: "/home/education/inbox",
-      icon: <Inbox className="w-4 h-4" />,
+      icon: <Inbox className="w-5 h-5" />,
       notification: { title: "New video", type: "important", count: 200 }
     },
     {
       title: "Community",
       link: "/home/education/community",
-      icon: <Globe className="w-4 h-4" />,
+      icon: <Globe className="w-5 h-5" />,
       notification: { title: "New video", type: "important", count: 500 }
     },
   ],
   Socials: [
-    { title: "Home", link: "/home/socials/", icon: <Home className="sm:w-4 w-6 h-6 sm:h-4 " /> },
-    { title: "Chat", link: "/home/socials/chat", icon: <MessageSquare className="sm:w-4  sm:h-4 w-6 h-6" /> },
-    { title: "Connections", link: "/home/socials/connections", icon: <UserPlus className="sm:w-4  sm:h-4 w-6 h-6" /> },
-    { title: "notification", link: "/home/socials/notification", icon: <Bell className="sm:w-4 sm:h-4 w-6 h-6" /> },
+    { title: "Home", link: "/home/socials/posts", icon: <Home className="sm:w-5 w-6 h-6 sm:h-5 " /> },
+    { title: "Create", link: "/home/socials/create-post", icon: <BadgePlus  className="sm:w-5 w-6 h-6 sm:h-5 " /> },
+    { title: "Chat", link: "/home/socials/chat", icon: <MessageSquare className="sm:w-5  sm:h-5 w-6 h-6" /> },
+    { title: "Connections", link: "/home/socials/connections", icon: <UserPlus className="sm:w-5  sm:h-5 w-6 h-6" /> },
+    { title: "notification", link: "/home/socials/notification", icon: <Bell className="sm:w-5 sm:h-5 w-6 h-6" /> },
 
   ]
 };
@@ -178,11 +179,11 @@ const Headers: React.FC = () => {
           {/* Rest of sidebar content */}
           <div className="flex flex-col gap-2">
             <Link href="/home/socials/profile" className="flex  items-center gap-4 p-2 px-3  transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
-              <User className="w-4 h-4" />
+              <User className="w-5 h-5" />
               <span>View Profile</span>
             </Link>
             <Link href="/home/socials/settings" className="flex items-center gap-4 p-2 px-3  transition-colorshover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
-              <Settings className="w-4 h-4" />
+              <Settings className="w-5 h-5" />
               <span>Settings</span>
             </Link>
           </div>
