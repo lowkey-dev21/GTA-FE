@@ -6,15 +6,23 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Globe, Users, Heart } from 'lucide-react'
 
+
+// Define enum before component
+enum Visibility {
+    Public = "PUBLIC",     // Store value in UPPERCASE (backend convention)
+    Mates = "MATES",
+    Favourite = "FAVOURITE"
+  }
+
 const CreatePost = () => {
     const router = useRouter()
     const [selectedTags, setSelectedTags] = useState<string[]>([])
     const [content, setContent] = useState('')
-    const [visibility, setVisibility] = useState('public')
+    const [visibility, setVisibility] = useState<Visibility>(Visibility.Public)
     const [isLoading, setIsLoading] = useState(false)
 
     const tagCategories = {
-        Topics: ['Study', 'Career', 'Technology', 'Gaming', 'Sports'],
+        Topics: ['Study', 'Career', 'Technology', 'Gaming', 'Sports', "Crypto","Forex"],
         Mood: ['Motivation', 'Success', 'Challenge', 'Help'],
         Academic: ['Mathematics', 'Programming', 'Science', 'Literature']
     }
@@ -53,6 +61,7 @@ const CreatePost = () => {
             <div className="px-6 py-6 max-w-[1000px] mx-auto">
                 <h1 className="text-3xl font-bold mb-8">Create New Post</h1>
 
+                {/* Tag Selection Section */}
                 <div className="mb-6">
                     <h2 className="text-lg font-semibold mb-4">Select Tags</h2>
                     {Object.entries(tagCategories).map(([category, tags]) => (
@@ -80,28 +89,29 @@ const CreatePost = () => {
                     ))}
                 </div>
 
-                <Tabs defaultValue="public" onValueChange={setVisibility}>
+                {/* Post Creation Section */}
+                <Tabs defaultValue={Visibility.Public} onValueChange={(value) => setVisibility(value as Visibility)}>
                     <TabsList className="grid grid-cols-3 mb-6">
-                        <TabsTrigger value="public" className="flex items-center gap-2">
+                        <TabsTrigger value={Visibility.Public} className="flex items-center gap-2">
                             <Globe className="h-4 w-4" />
                             Public
                         </TabsTrigger>
-                        <TabsTrigger value="mates" className="flex items-center gap-2">
+                        <TabsTrigger value={Visibility.Mates} className="flex items-center gap-2">
                             <Users className="h-4 w-4" />
                             Mates
                         </TabsTrigger>
-                        <TabsTrigger value="close-friends" className="flex items-center gap-2">
+                        <TabsTrigger value={Visibility.Favourite} className="flex items-center gap-2">
                             <Heart className="h-4 w-4" />
                             Close Friends
                         </TabsTrigger>
                     </TabsList>
 
-                    {['public', 'mates', 'close-friends'].map((tab) => (
-                        <TabsContent key={tab} value={tab}>
+                    {Object.values(Visibility).map((visibilityValue) => (
+                        <TabsContent key={visibilityValue} value={visibilityValue}>
                             <Card>
                                 <CardHeader>
                                     <CardTitle>
-                                        {tab.charAt(0).toUpperCase() + tab.slice(1).replace('-', ' ')} Post
+                                        {visibilityValue.charAt(0) + visibilityValue.slice(1).toLowerCase()} Post
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent>
@@ -109,8 +119,8 @@ const CreatePost = () => {
                                         <textarea
                                             value={content}
                                             onChange={(e) => setContent(e.target.value)}
-                                            className="w-full p-4 border rounded-md min-h-[200px] mb-4 bg-background"
-                                            placeholder="What's on your mind?"
+                                            className="w-full p-4 border rounded-md min-h-[200px] mb-4 bg-background resize-none"
+                                            placeholder={`What's on your mind? This will be visible to ${visibilityValue.toLowerCase()} only`}
                                             required
                                         />
                                         <Button 
