@@ -184,19 +184,6 @@
   /* Outline color in dark mode */
 }
 
-.active {
-  color: white;
-  background: #3b82f6;
-}
 
-.Expert {
-  @apply text-blue-500
-}
 
-.Beginner {
-  @apply text-green-500
-}
 
-.Amateur {
-  @apply text-orange-500
-}

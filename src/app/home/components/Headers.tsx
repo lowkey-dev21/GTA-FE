@@ -166,7 +166,7 @@ const Headers: React.FC = () => {
                 href={link.link}
                 className={cn(
                   "flex items-center gap-4 p-2 px-3 rounded-md transition-colors",
-                  "hover:bg-blue-600 hover:text-white",
+                  "hover:bg-gray-100 dark:hover:bg-gray-800 ",
                   pathname === link.link && "text-white bg-blue-600"
                 )}
               >
@@ -233,7 +233,7 @@ const Headers: React.FC = () => {
             key={link.link}
             className={cn(
               "flex items-center gap-4 p-2 px-3 rounded-md transition-colors",
-              "hover:bg-blue-600 hover:text-white",
+              "hover:bg-gray-100 dark:hover:bg-gray-800 ",
               pathname === link.link && "text-white bg-blue-600"
             )}
           >
@@ -275,7 +275,7 @@ const Headers: React.FC = () => {
               href={item.link}
               className={cn(
                 "flex items-center justify-between gap-4 p-2 px-3 rounded-md transition-colors",
-                "hover:bg-blue-600 hover:text-white ",
+                "hover:bg-gray-100 dark:hover:bg-gray-800",
                 pathname === item.link && " text-white bg-blue-600"
               )}
             >
