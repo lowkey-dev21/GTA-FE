@@ -56,7 +56,7 @@ const CreatePost = () => {
     }
 
     return (
-        <div className="min-h-screen sm:ml-56 mx-auto bg-background">
+        <div className="min-h-screen mb-[4rem]  sm:ml-56 mx-auto bg-background">
             <div className="h-16" />
             <div className="px-6 py-6 max-w-[1000px] mx-auto">
                 <h1 className="text-3xl font-bold mb-8">Create New Post</h1>
@@ -119,14 +119,14 @@ const CreatePost = () => {
                                         <textarea
                                             value={content}
                                             onChange={(e) => setContent(e.target.value)}
-                                            className="w-full p-4 border rounded-md min-h-[200px] mb-4 bg-background resize-none"
+                                            className="w-full  p-4 border rounded-md min-h-[200px] lg:mb-4 bg-background resize-none"
                                             placeholder={`What's on your mind? This will be visible to ${visibilityValue.toLowerCase()} only`}
                                             required
                                         />
                                         <Button 
                                             type="submit"
                                             disabled={isLoading || selectedTags.length === 0}
-                                            className="w-full bg-blue-600 text-white hover:bg-blue-600 hover:opacity-85"
+                                            className="w-full h-[50px] bg-blue-600 text-white hover:bg-blue-600 hover:opacity-85"
                                         >
                                             {isLoading ? 'Creating...' : 'Create Post'}
                                         </Button>
