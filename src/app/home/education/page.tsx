@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext} from "react";
 import { UserContext } from "@/contexts/userContext";
 import { BookOpen, Clock, GraduationCap, Target, Trophy } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
