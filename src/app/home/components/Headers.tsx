@@ -167,7 +167,7 @@ const Headers: React.FC = () => {
                 className={cn(
                   "flex items-center gap-4 p-2 px-3 rounded-md transition-colors",
                   "hover:bg-gray-100 dark:hover:bg-gray-800 ",
-                  pathname === link.link && "text-white bg-blue-600"
+                  pathname === link.link && "text-white activeHover  bg-blue-600"
                 )}
               >
                 {link.icon}
@@ -233,8 +233,8 @@ const Headers: React.FC = () => {
             key={link.link}
             className={cn(
               "flex items-center gap-4 p-2 px-3 rounded-md transition-colors",
-              "hover:bg-gray-100 dark:hover:bg-gray-800 ",
-              pathname === link.link && "text-white bg-blue-600"
+              "hover:bg-gray-100   dark:hover:bg-gray-800 ",
+              pathname === link.link && "text-white activeHover  bg-blue-600"
             )}
           >
             {link.icon}
@@ -275,8 +275,8 @@ const Headers: React.FC = () => {
               href={item.link}
               className={cn(
                 "flex items-center justify-between gap-4 p-2 px-3 rounded-md transition-colors",
-                "hover:bg-gray-100 dark:hover:bg-gray-800",
-                pathname === item.link && " text-white bg-blue-600"
+                "hover:bg-gray-100  dark:hover:bg-gray-800",
+                pathname === item.link && " text-white activeHover   bg-blue-600"
               )}
             >
               <div className="flex items-center gap-2">
@@ -410,7 +410,7 @@ const Headers: React.FC = () => {
                 >
                   <div className={cn(
                     "p-1.5 rounded-lg transition-colors",
-                    isActiveRoute(pathname, link.link) && "bg-blue-50 dark:bg-blue-900/20"
+                    isActiveRoute(pathname, link.link) && "bg-blue-50  dark:bg-blue-900/20"
                   )}>
                     {link.icon}
                   </div>

@@ -184,6 +184,6 @@
   /* Outline color in dark mode */
 }
 
-
-
-
+.activeHover {
+  @apply hover:text-black dark:hover:text-white
+}
