@@ -461,7 +461,7 @@ const Headers: React.FC = () => {
               
               {/* Profile */}
               <div className="flex lg:hidden items-center gap-2">
-                <div className=" rounded-full overflow-hidden relative bg-gray-200">
+                <div className=" rounded-full h-[2rem] w-[2rem] overflow-hidden relative ">
                     <Avatar className="  ">
                       <AvatarImage
                         className=" object-cover rounded-full"
