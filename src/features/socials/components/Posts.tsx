@@ -21,7 +21,7 @@ const Posts = () => {
   const [error, setError] = useState<string | null>(null)
 
 
-
+// fetch posts 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -37,6 +37,8 @@ const Posts = () => {
 
     fetchPosts()
   }, [getPosts])
+
+  console.log(posts)
 
   const getProfilePicture = (profilePic: string | null) => {
     return (!profilePic || profilePic.trim() === '') ? avatar : profilePic;
@@ -60,7 +62,7 @@ const Posts = () => {
 
                     {/* Author Info */}
                     <div className="flex items-center gap-2">
-                      <div className="h-10 w-10 rounded-full overflow-hidden relative bg-gray-200">
+                      <div className="h-[3rem] w-[3rem] rounded-full overflow-hidden relative bg-gray-200">
                         <Image
                             src={getProfilePicture(post.profilePicture)}
                             alt={post.author || 'user'}
@@ -70,16 +72,17 @@ const Posts = () => {
                             priority
                         />
                       </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold hover:underline decoration-blue-600  underline-offset-4 cursor-pointer  hover:text-blue-600 ">@{post.author}</span>
-                        {post.title && (<span className=" text-blue-500 font-medium">{`#${post.title}`}</span>)}
+                      <div className="flex  flex-col">
+                        <span className='font-semibold'>{post.fullName}</span>
+                        <span className="text-sm hover:underline decoration-blue-600  underline-offset-4 cursor-pointer  hover:text-blue-600 ">@{post.author}</span>
                       </div>
                     </div>
 
                     {/* Post Content */}
                     <div className='flex flex-col gap-2  pb-4'>
                       {/*{post.title && (<h2 className="font-semibold">{post.title}</h2>)}*/}
-                      <p className="text-gray-600 text-xl dark:text-gray-300">{post.content}</p>
+                      <p className=" text-xl w-[90%] ">{post.content}</p>
+                      {post.title && (<span className=" text-blue-500  font-medium">{`#${post.title}`}</span>)}
 
                       {/* Post Stats */}
                       <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">

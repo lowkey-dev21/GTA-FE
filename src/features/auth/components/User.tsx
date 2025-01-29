@@ -1,8 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import { UserData } from "../types/types";
-import { User, Settings, LogOut } from "lucide-react";
-import Link from "next/link";
+import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { userAuthStore } from "../store/userAuthStore";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -50,27 +49,9 @@ const UserDesktopTemplate = ({ user }: { user: UserData }) => {
           </div>
           {isOpen && (
               <ul
-                  className="absolute right-0 z-10 mt-2 p-1 w-52 bg-white dark:bg-[#0A0A0A] border shadow-lg rounded-lg overflow-hidden"
+                  className="absolute right-0 z-10 mt-2 p-1 w-52 bg-white dark:bg-[#0A0A0A] border shadow-lg rounded-lg hidden lg:flex overflow-hidden"
                   onMouseLeave={() => setIsOpen(false)}
               >
-                <li className="dark:border-gray-700">
-                  <Link
-                      href="/profile"
-                      className="flex items-center gap-2 p-2 hover:bg-gray-100 dark:hover:bg-[#2F2F2F] rounded-md text-gray-800 dark:text-white"
-                  >
-                    <User className="w-4 h-4" />
-                    View Profile
-                  </Link>
-                </li>
-                <li className="dark:border-gray-700">
-                  <Link
-                      href="/home/settings"
-                      className="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-md dark:hover:bg-[#2F2F2F] text-gray-800 dark:text-white"
-                  >
-                    <Settings className="w-4 h-4" />
-                    Settings
-                  </Link>
-                </li>
                 <li>
                   <button
                       onClick={handleLogout}

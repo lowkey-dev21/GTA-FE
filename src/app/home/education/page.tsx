@@ -17,8 +17,8 @@ const DashboardPage = () => {
 
   const getSkillLevel = () => {
     if (user?.level?.expert) return "Expert";
-    if (user?.level?.amateur) return "Amateur";
     if (user?.level?.beginner) return "Beginner";
+    if (user?.level?.amateur) return "Amateur";
     return "Not Set";
   };
 
@@ -57,14 +57,14 @@ const DashboardPage = () => {
                     <div className="flex items-center gap-2">
                       <div
                         className={`flex items-center  gap-1 text-sm font-bold p-1 px-2 rounded-md ${
-                          getSkillLevel() === "Beginner" ? "text-green-500" : getSkillLevel() === "Expert" ? "text-orange-500" : "text-blue-600"  
+                          getSkillLevel() === "Beginner" ? "text-blue-600" : getSkillLevel() === "Expert" ? "text-orange-600" : "text-violet-600"  
                         }`}
                       >
                         <GraduationCap className="h-5 w-5" />
                         <span>{getSkillLevel()}</span>
                       </div>
                       {user?.isVerified && (
-                        <RiVerifiedBadgeFill className="h-5 w-4 text-blue-500" />
+                        <RiVerifiedBadgeFill className="h-5 w-4 text-green-500" />
                       )}
    </div>
                   </div>

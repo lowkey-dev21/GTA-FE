@@ -28,7 +28,7 @@ const SideNav = ({
 
             {/* Dropdown Menu */}
             <ul tabIndex={0} className=" w-full flex flex-col gap-[2rem] ">
-              <li><Link href={"/home/education"} className="  rounded-md  justify-between items-center  flex items-center ">
+              <li><Link href={"/home/education"} className="  rounded-md  justify-between items-center  flex  ">
                 <span>Dashboard </span>
                 <ChevronRight className="w-5 h-5" />
               </Link>

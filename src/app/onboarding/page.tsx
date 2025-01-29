@@ -284,11 +284,12 @@ const OnboardingForm = () => {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Add a profile picture</h2>
-            <div className="flex flex-col items-center space-y-4">
-              <div className="w-[50px] h-[50px] rounded-full flex items-center justify-center">
+            <div className="flex  flex-col items-center space-y-4">
+              <div className="!w-[50px] !h-[50px] rounded-full flex items-center justify-center">
                 {formData.profilePicture ? (
                   <Image
-                    layout='fill'
+                    width={50}
+                    height={50}
                     objectFit="cover"
                     src={URL.createObjectURL(formData.profilePicture)}
                     alt="Profile preview"
@@ -383,4 +384,3 @@ const OnboardingForm = () => {
 };
 
 export default OnboardingForm;
-

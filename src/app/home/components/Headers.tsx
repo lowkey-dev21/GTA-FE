@@ -2,11 +2,16 @@
 import Logo from '@/components/Logo';
 import React, { useState, useEffect } from 'react';
 import Link from "next/link"
-import { ChevronsUpDown, GraduationCap, BadgePlus, Menu, Search, Globe, Inbox, LayoutDashboard, LibraryBig, UsersRound, MessageSquare, UserPlus, Settings, Slack, X, User, LogOut, Star, Home, Bell } from 'lucide-react';
+import { ChevronsUpDown, GraduationCap,BadgePlus, Menu, Search, Globe, Inbox, LayoutDashboard, LibraryBig, UsersRound, MessageSquare, Settings, Slack, X, LogOut, Star, Home, Bell } from 'lucide-react';
 import Auth from '@/features/auth/components/Auth';
 import { ModeToggle } from '@/components/modeToggler';
 import { usePathname } from 'next/navigation'
 import { cn } from "@/lib/utils"
+import { useAuthCheck } from '@/features/auth/hooks/uesAuthCheck';
+import AuthSkeleton from '@/features/auth/skeleton/AuthSkeleton';
+import { Avatar, AvatarImage,AvatarFallback } from "@/components/ui/avatar";
+import avatar from "../../../../public/assets/avatar.png"
+import  Image from "next/image"
 
 // Define interfaces for our types
 interface SectionType {
@@ -32,6 +37,7 @@ interface SectionNavLinks {
   [key: string]: NavLink[];
 }
 
+// space Title 
 const sectionNavTitle: SectionType[] = [
   {
     title: "Education",
@@ -45,17 +51,8 @@ const sectionNavTitle: SectionType[] = [
   },
 ];
 
+// profile links
 const profileLinks = [
-  {
-    title: "View Profile",
-    link: "/profile",
-    icon: <User className="w-4 h-4" />
-  },
-  {
-    title: "Settings",
-    link: "/settings",
-    icon: <Settings className="w-4 h-4" />
-  },
   {
     title: "Logout",
     link: "/logout",
@@ -65,6 +62,7 @@ const profileLinks = [
 
 // Section-specific navigation links
 const sectionNavLinks: SectionNavLinks = {
+  // Education links 
   Education: [
     {
       title: "Dashboard",
@@ -99,14 +97,23 @@ const sectionNavLinks: SectionNavLinks = {
       icon: <Globe className="w-5 h-5" />,
       notification: { title: "New video", type: "important", count: 500 }
     },
+    {
+      title: "Settings",
+      link: "/home/education/settings",
+      icon: <Settings className="w-5 h-5" />,
+    },
   ],
+  // Socials link 
   Socials: [
     { title: "Home", link: "/home/socials/posts", icon: <Home className="sm:w-5 w-6 h-6 sm:h-5 " /> },
     { title: "Create", link: "/home/socials/create-post", icon: <BadgePlus  className="sm:w-5 w-6 h-6 sm:h-5 " /> },
     { title: "Chat", link: "/home/socials/chat", icon: <MessageSquare className="sm:w-5  sm:h-5 w-6 h-6" /> },
-    { title: "Connections", link: "/home/socials/connections", icon: <UserPlus className="sm:w-5  sm:h-5 w-6 h-6" /> },
     { title: "notification", link: "/home/socials/notification", icon: <Bell className="sm:w-5 sm:h-5 w-6 h-6" /> },
-
+    {
+      title: "Settings",
+      link: "/home/socials/settings",
+      icon: <Settings className="w-5 h-5" />,
+    },
   ]
 };
 
@@ -144,10 +151,18 @@ const Headers: React.FC = () => {
   );
   const [toggle, setToggle] = useState<boolean>(false);
 
+
+
   // Update section when route changes
   useEffect(() => {
     setSelectedSection(getInitialSection(pathname));
   }, [pathname]);
+
+  const { isLoading, loadingUI, user } = useAuthCheck({
+    LoadingComponent: AuthSkeleton,
+    requireAuth: false,
+  });
+
 
   /**
    * Renders the social section sidebar
@@ -156,7 +171,7 @@ const Headers: React.FC = () => {
    */
   const renderSocialsSidebar = () => {
     return (
-      <div className="flex flex-col justify-between mt-4 gap-4 p-4">
+      <div className="flex flex-col items-center justify-between mt-4 gap-4 p-4">
         {/* Navigation Links - Desktop Only */}
         <div>
           <div className="hidden sm:flex flex-col gap-2">
@@ -176,23 +191,49 @@ const Headers: React.FC = () => {
             ))}
           </div>
 
-          {/* Rest of sidebar content */}
-          <div className="flex flex-col gap-2">
-            <Link href="/home/socials/profile" className="flex  items-center gap-4 p-2 px-3  transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
-              <User className="w-5 h-5" />
-              <span>View Profile</span>
-            </Link>
-            <Link href="/home/socials/settings" className="flex items-center gap-4 p-2 px-3  transition-colorshover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
-              <Settings className="w-5 h-5" />
-              <span>Settings</span>
-            </Link>
-          </div>
+          
         </div>
         
-        <button className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg">
-          <Star className="w-5 h-5" />
-          <span>Go Premium</span>
-        </button>
+        <div className='flex gap-2 flex-col ' >
+              {/* Profile */}
+              <div className="lg:flex hidden  items-center gap-2 hover:bg-gray-100  dark:hover:bg-gray-800 rounded-lg mb-2  p-1 ">
+                <div className=" rounded-full overflow-hidden relative bg-gray-200">
+                    <Avatar className="  ">
+                      <AvatarImage
+                        className=" object-cover rounded-full"
+                        src={user?.profilePicture}
+                        alt={`${user?.firstName} ${user?.lastName}`}
+                      />
+                      {user?.firstName && user?.lastName && (
+                        <AvatarFallback className="flex items-center justify-center  font-bold text-xs shadow-lg ">
+                          <div className="h-[2rem] w-[2rem] rounded-full overflow-hidden relative bg-gray-200">
+                            <Image
+                                src={avatar}
+                                alt='user'
+                                fill
+                                className="object-cover"
+                                sizes="32px"
+                                priority
+                            />
+                          </div>
+                        </AvatarFallback>
+                      )}
+                    </Avatar>
+                  </div>
+
+                  <div className=' ' >
+                      {user.firstName}
+                  </div>
+                                   
+              </div>
+
+          <button className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg">
+            <Star className="w-5 h-5" />
+        
+            <span>Go Premium</span>
+          </button>
+        </div>
+
       </div>
     );
   };
@@ -309,6 +350,7 @@ const Headers: React.FC = () => {
     <>
       {/* Top Navigation and Desktop Sidebar */}
       <section className="relative">
+        
         <nav className="fixed top-0 w-full z-[1000] bg-white dark:bg-[#0A0A0A] border-b">
           {/* Top navigation */}
           <nav className="w-full border-b z-[1000] justify-between flex items-center px-5 py-3 fixed h-[70px] bg-white dark:bg-[#0A0A0A]">
@@ -385,11 +427,10 @@ const Headers: React.FC = () => {
         {/* Mobile Sidebar - Shows only profile settings for socials */}
         {toggle && (
           <>
-            <section className="w-[60%] flex-col py-6 px-6 flex sm:hidden z-[100] right-0 border-l h-screen fixed pt-[5rem] bg-white dark:bg-[#0A0A0A]">
+            <section className="w-full flex-col py-6 px-6 flex sm:hidden z-[100] right-0 h-screen fixed pt-[5rem] bg-white dark:bg-[#0A0A0A]">
               <Auth />
               {isSocialsRoute(pathname) ? renderSocialsSidebar() : renderSectionNav()}
             </section>
-            <div onClick={() => setToggle(false)} className="fixed inset-0 z-[10] bg-black/50" />
           </>
         )}
 
@@ -417,7 +458,35 @@ const Headers: React.FC = () => {
                   {/* <span className="text-xs mt-1">{link.title}</span> */}
                 </Link>
               ))}
-            </div>
+              
+              {/* Profile */}
+              <div className="flex lg:hidden items-center gap-2">
+                <div className=" rounded-full overflow-hidden relative bg-gray-200">
+                    <Avatar className="  ">
+                      <AvatarImage
+                        className=" object-cover rounded-full"
+                        src={user?.profilePicture}
+                        alt={`${user?.firstName} ${user?.lastName}`}
+                      />
+                      {user?.firstName && user?.lastName && (
+                        <AvatarFallback className="flex items-center justify-center  font-bold text-xs shadow-lg ">
+                          <div className="h-[2rem] w-[2rem] rounded-full overflow-hidden relative bg-gray-200">
+                            <Image
+                                src={avatar}
+                                alt='user'
+                                fill
+                                className="object-cover"
+                                sizes="32px"
+                                priority
+                            />
+                          </div>
+                        </AvatarFallback>
+                      )}
+                    </Avatar>
+                  </div>
+                                   
+              </div>
+            </div> 
           </nav>
         )}
       </section>
