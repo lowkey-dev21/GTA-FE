@@ -1,6 +1,6 @@
 'use client'
 import Logo from '@/components/Logo';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Link from "next/link"
 import { ChevronsUpDown, GraduationCap,BadgePlus, Menu, Search, Globe, Inbox, LayoutDashboard, LibraryBig, UsersRound, MessageSquare, Settings, Slack, X, LogOut, Star, Home, Bell } from 'lucide-react';
 import Auth from '@/features/auth/components/Auth';
@@ -12,6 +12,7 @@ import AuthSkeleton from '@/features/auth/skeleton/AuthSkeleton';
 import { Avatar, AvatarImage,AvatarFallback } from "@/components/ui/avatar";
 import avatar from "../../../../public/assets/avatar.png"
 import  Image from "next/image"
+import { UserContext } from '@/contexts/userContext'
 
 // Define interfaces for our types
 interface SectionType {
@@ -139,6 +140,43 @@ const isActiveRoute = (currentPath: string, linkPath: string): boolean => {
 };
 
 /**
+ * Profile component for mobile header
+ * Displays user avatar and links to profile page
+ */
+const MobileProfile: React.FC = () => {
+  const user = useContext(UserContext)
+  
+  return (
+    <div className="flex lg:hidden items-center gap-2">
+      <Link href={`/home/socials/user`} className="rounded-full overflow-hidden">
+        <Avatar className="h-[2rem] w-[2rem]">
+          {/* User Profile Image */}
+          <AvatarImage
+            className="object-cover rounded-full"
+            src={user?.profilePicture}
+            alt={`${user?.firstName} ${user?.lastName}`}
+          />
+          
+          {/* Fallback Avatar */}
+            <AvatarFallback className="flex items-center justify-center font-bold text-xs shadow-lg">
+              <div className="h-[2rem] w-[2rem] rounded-full overflow-hidden relative bg-gray-200">
+                <Image
+                  src={avatar}
+                  alt='Default avatar'
+                  fill
+                  className="object-cover"
+                  sizes="32px"
+                  priority
+                />
+              </div>
+            </AvatarFallback>
+        </Avatar>
+      </Link>
+    </div>
+  )
+}
+
+/**
  * Headers Component
  * Handles navigation and layout for both Education and Social sections
  * Includes responsive design for mobile and desktop views
@@ -194,9 +232,9 @@ const Headers: React.FC = () => {
           
         </div>
         
-        <div className='flex gap-2 flex-col ' >
-              {/* Profile */}
-              <div className="lg:flex hidden  items-center gap-2 hover:bg-gray-100  dark:hover:bg-gray-800 rounded-lg mb-2  p-1 ">
+        <div className='flex gap-2 flex-col' >
+              {/*Desktop Profile */}
+              <Link href={"/home/socials/user"} className="lg:flex hidden  items-center gap-2 hover:bg-gray-100  dark:hover:bg-gray-800 rounded-lg mb-2  p-1 ">
                 <div className=" rounded-full overflow-hidden relative bg-gray-200">
                     <Avatar className="  ">
                       <AvatarImage
@@ -204,7 +242,6 @@ const Headers: React.FC = () => {
                         src={user?.profilePicture}
                         alt={`${user?.firstName} ${user?.lastName}`}
                       />
-                      {user?.firstName && user?.lastName && (
                         <AvatarFallback className="flex items-center justify-center  font-bold text-xs shadow-lg ">
                           <div className="h-[2rem] w-[2rem] rounded-full overflow-hidden relative bg-gray-200">
                             <Image
@@ -217,15 +254,13 @@ const Headers: React.FC = () => {
                             />
                           </div>
                         </AvatarFallback>
-                      )}
                     </Avatar>
                   </div>
 
                   <div className=' ' >
-                      {user.firstName}
+                      Profile
                   </div>
-                                   
-              </div>
+              </Link>
 
           <button className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg">
             <Star className="w-5 h-5" />
@@ -460,32 +495,7 @@ const Headers: React.FC = () => {
               ))}
               
               {/* Profile */}
-              <div className="flex lg:hidden items-center gap-2">
-                <Link href={`/home/socials/user`} className=" rounded-full overflow-hidden ">
-                    <Avatar className=" h-[2rem] w-[2rem]  ">
-                      <AvatarImage
-                        className=" object-cover rounded-full"
-                        src={user?.profilePicture}
-                        alt={`${user?.firstName} ${user?.lastName}`}
-                      />
-                      {user?.firstName && user?.lastName && (
-                        <AvatarFallback className="flex items-center justify-center  font-bold text-xs shadow-lg ">
-                          <div className="h-[2rem] w-[2rem] rounded-full overflow-hidden relative bg-gray-200">
-                            <Image
-                                src={avatar}
-                                alt='user'
-                                fill
-                                className="object-cover"
-                                sizes="32px"
-                                priority
-                            />
-                          </div>
-                        </AvatarFallback>
-                      )}
-                    </Avatar>
-                  </Link>
-                                   
-              </div>
+              <MobileProfile />
             </div> 
           </nav>
         )}

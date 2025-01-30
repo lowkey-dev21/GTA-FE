@@ -8,6 +8,8 @@ import { UserContext } from '@/contexts/userContext'
 import Loading from '@/components/Loader'
 import { userPostStore } from '@/features/socials/store/useBlogStore'
 import { Post } from '@/features/socials/types/post'
+import Image from "next/image"
+import avatar from "../../../../../public/assets/avatar.png"
 
 
 interface Connection {
@@ -68,10 +70,18 @@ const UserProfile = () => {
               src={user.profilePicture}
               alt={`${user.firstName} ${user.lastName}`}
             />
-            <AvatarFallback>
-              {user.firstName?.[0]}
-              {user.lastName?.[0]}
-            </AvatarFallback>
+            <AvatarFallback className="flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32  font-bold text-xs shadow-lg ">
+              <div className="h-full w-full rounded-full overflow-hidden relative bg-gray-200">
+                <Image
+                  src={avatar}
+                  alt='user'
+                  fill
+                  className="object-cover"
+                  sizes="32px"
+                  priority
+                />
+               </div>
+                        </AvatarFallback>
           </Avatar>
 
           <div className="flex-1">
