@@ -427,7 +427,7 @@ const Headers: React.FC = () => {
         {/* Mobile Sidebar - Shows only profile settings for socials */}
         {toggle && (
           <>
-            <section className="w-full flex-col py-6 px-6 flex sm:hidden z-[100] right-0 h-screen fixed pt-[5rem] bg-white dark:bg-[#0A0A0A]">
+            <section className="w-[60%] border-l flex-col py-6 px-6 flex sm:hidden z-[100] right-0 h-screen fixed pt-[5rem] bg-white dark:bg-[#0A0A0A]">
               <Auth />
               {isSocialsRoute(pathname) ? renderSocialsSidebar() : renderSectionNav()}
             </section>
@@ -461,8 +461,8 @@ const Headers: React.FC = () => {
               
               {/* Profile */}
               <div className="flex lg:hidden items-center gap-2">
-                <div className=" rounded-full h-[2rem] w-[2rem] overflow-hidden relative ">
-                    <Avatar className="  ">
+                <Link href={`/home/socials/user`} className=" rounded-full overflow-hidden ">
+                    <Avatar className=" h-[2rem] w-[2rem]  ">
                       <AvatarImage
                         className=" object-cover rounded-full"
                         src={user?.profilePicture}
@@ -483,7 +483,7 @@ const Headers: React.FC = () => {
                         </AvatarFallback>
                       )}
                     </Avatar>
-                  </div>
+                  </Link>
                                    
               </div>
             </div> 

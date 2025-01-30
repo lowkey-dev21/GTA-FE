@@ -15,6 +15,8 @@ interface UserPostStoreTypes {
     isFetchingPosts: boolean;
     getPosts: () => Promise<Post[]>;
     post?: (postForm: PostFormI) => Promise<void>;
+
+    getPersonalPost: () => Promise<Post[]>;
 }
 
 export const userPostStore = create<UserPostStoreTypes>((set) => ({
@@ -51,5 +53,34 @@ export const userPostStore = create<UserPostStoreTypes>((set) => ({
 
     post: async () => {
         // Implement post logic
+    },
+
+    getPersonalPost : async () => {
+        set({ isFetchingPosts: true })
+        try {
+            const token = Cookie.get("token")
+            const res = await axiosInstance.get("/api/socials/post/get-personal-posts", {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+
+            const posts = res.data.posts || []
+
+            set({
+                posts,
+                isFetchingPosts: false
+            })
+
+            toaster.toastS(res.data.message)
+            return posts
+
+        } catch (error: any) {
+            set({
+                posts: [],
+                isFetchingPosts: false
+            })
+            toaster.toastE(error.response?.data.message)
+            throw error
+        }
     }
+    
 }))
