@@ -57,13 +57,7 @@ const Hero = () => {
                 academy. Access comprehensive courses and resources to guide you
                 toward financial success. Start your journey today!
               </p>
-              {user ? (
-                //TODO: data to be aded
-                //WARN: important
-                <div className="text-3xl mt-6 text-red-500">
-                  something to be added later on
-                </div>
-              ) : (
+              
                 <div className=" flex gap-4  sm:w-[60%] w-full justify-between">
                   <Link
                     onClick={() => console.log("Clicked")}
@@ -80,7 +74,7 @@ const Hero = () => {
                     <p>SIGN UP</p>
                   </Link>
                 </div>
-              )}
+              
             </div>
           </div>
         </section>
