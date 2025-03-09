@@ -2,7 +2,7 @@
 import Link from "next/link";
 import FinlogixWidget from "./FinlogixWidget";
 import { webName } from "@/constants";
-import { useAuthCheck } from "@/features/auth/hooks/uesAuthCheck";
+// import { useAuthCheck } from "@/features/auth/hooks/uesAuthCheck";
 import HeroSkeleton from "@/skeleton/HeroSkeleton";
 
 
