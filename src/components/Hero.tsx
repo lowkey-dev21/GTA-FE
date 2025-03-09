@@ -8,13 +8,13 @@ import HeroSkeleton from "@/skeleton/HeroSkeleton";
 
 const Hero = () => {
 
-  //check auth
-  const { isLoading, loadingUI, user } = useAuthCheck({
-    LoadingComponent: HeroSkeleton,
-    requireAuth: false,
-  });
+  // //check auth
+  // const { isLoading, loadingUI, user } = useAuthCheck({
+  //   LoadingComponent: HeroSkeleton,
+  //   requireAuth: false,
+  // });
 
-  if (isLoading) return loadingUI;
+  // if (isLoading) return loadingUI;
 
 
 
