@@ -196,10 +196,10 @@ const Headers: React.FC = () => {
     setSelectedSection(getInitialSection(pathname));
   }, [pathname]);
 
-  const {user } = useAuthCheck({
-    LoadingComponent: AuthSkeleton,
-    requireAuth: false,
-  });
+  // const {user } = useAuthCheck({
+  //   LoadingComponent: AuthSkeleton,
+  //   requireAuth: false,
+  // });
 
 
   /**
