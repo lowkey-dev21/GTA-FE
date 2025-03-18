@@ -15,7 +15,7 @@ const lato = localfont({
 });
 
 export const metadata: Metadata = {
-  title: "GTA Social Network",
+  title: "GTA",
   description: "Connect, Share, and Engage with the GTA Community",
   applicationName: "GTA Social Network",
   appleWebApp: {
