@@ -2,11 +2,14 @@
   "name": "gta-client",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-icons": "npm run create-logo && npx tsx scripts/generate-pwa-icons.ts",
+    "create-logo": "npx tsx scripts/create-placeholder-logo.ts"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.2",
@@ -30,6 +33,7 @@
     "ldrs": "^1.0.2",
     "lucide-react": "^0.468.0",
     "next": "15.0.4",
+    "next-pwa": "^5.6.0",
     "next-themes": "^0.4.4",
     "react": "^18.3.1",
     "react-copy-to-clipboard": "^5.1.0",
@@ -45,15 +49,19 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
+    "@types/next-pwa": "^5.6.9",
     "@types/node": "^20",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
+    "@types/sharp": "^0.31.1",
     "@types/validator": "^13.12.2",
     "daisyui": "^4.12.22",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
     "postcss": "^8",
+    "sharp": "^0.33.5",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

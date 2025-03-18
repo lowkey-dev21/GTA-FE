@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ToastContainer, Bounce } from "react-toastify"
+import { ToastContainer, Bounce } from "react-toastify";
 
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
@@ -15,36 +15,29 @@ const lato = localfont({
 });
 
 export const metadata: Metadata = {
-  title: "Forex Trading Platform | GTA",
-  description:
-    "Trade forex with confidence on GTA, your trusted forex trading platform. Access real-time market data, advanced trading tools, and expert insights.",
-  icons: {
-    icon: "/assets/favicon.ico", // Path to your favicon
+  title: "GTA Social Network",
+  description: "Connect, Share, and Engage with the GTA Community",
+  applicationName: "GTA Social Network",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "GTA",
   },
-  // openGraph: {
-  //   title: "Forex Trading Platform | GTA",
-  //   description:
-  //     "Trade forex with confidence on GTA, your trusted forex trading platform. Access real-time market data, advanced trading tools, and expert insights.",
-  //   url: "https://your-forex-website.com", // Replace with your website URL
-  //   siteName: "GTA Forex Trading",
-  //   images: [
-  //     {
-  //       url: "/assets/og-image.jpg", // Path to your Open Graph image
-  //       width: 1200,
-  //       height: 630,
-  //       alt: "GTA Forex Trading Platform",
-  //     },
-  //   ],
-  //   locale: "en_US",
-  //   type: "website",
-  // },
-  // twitter: {
-  //   card: "summary_large_image",
-  //   title: "Forex Trading Platform | GTA",
-  //   description:
-  //     "Trade forex with confidence on GTA, your trusted forex trading platform. Access real-time market data, advanced trading tools, and expert insights.",
-  //   images: ["/assets/twitter-image.jpg"], // Path to your Twitter image
-  // },
+  formatDetection: {
+    telephone: false,
+  },
+  themeColor: "#000000",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  manifest: "/manifest.json",
+  icons: {
+    apple: [
+      { url: "/icons/icon-192x192.png" },
+      { url: "/icons/icon-152x152.png", sizes: "152x152" },
+      { url: "/icons/icon-144x144.png", sizes: "144x144" },
+      { url: "/icons/icon-192x192.png", sizes: "192x192" },
+    ],
+    shortcut: [{ url: "/favicon.ico" }],
+  },
   keywords: [
     "forex trading",
     "forex platform",
@@ -63,6 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head />
       <body className={`${lato.variable} bg-white dark:bg-[#0a0a0a]`}>
         {/* ThemeProvider ensures consistent theme rendering */}
         <ThemeProvider
