@@ -1,68 +1,31 @@
-import { useAuthCheck } from "@/features/auth/hooks/uesAuthCheck";
-import AuthSkeleton from "@/features/auth/skeleton/AuthSkeleton";
 import { HeaderItems } from "@/types/type";
-import { ChevronRight, LogOut, Settings, User } from "lucide-react";
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import CustomButton from "./CustomButton";
+import { useRouter } from "next/navigation";
 
-const SideNav = ({
-  auth,
-  navLinks,
-}: {
-  auth: ReactNode;
-  navLinks: HeaderItems[];
-}) => {
-  const { isLoading, loadingUI, user } = useAuthCheck({
-    LoadingComponent: AuthSkeleton,
-    requireAuth: false,
-  });
-
-  if (isLoading) return loadingUI;
-
+const SideNav = ({ navLinks }: { navLinks: HeaderItems[] }) => {
+  const router = useRouter()
   return (
     <div className=" lg:hidden  bg-white dark:bg-[#0a0a0a] h-[100%] flex flex-col items-center px-5 fixed w-full top-0 pt-[5rem] ">
       <div className=" flex flex-col w-full">
-        <div className="font-semibold">{auth}</div>
-        {user && (
-          <div className="w-full mt-6  flex flex-col opacity-80  ">
+        <div className="font-semibold">
+          <div className=" sm:flex-row flex lg:mb-0 mb-[5rem]  flex-col gap-4 items-center h-[40px]   ">
+            <CustomButton
+              title="Login"
+              styles=" border-[1px] lg:border-[2px] border-initialPrimary-500 flex items-center justify-center w-full h-[40px] lg:w-[120px] hover:opacity-80 text-initialPrimary-500 py-2 rounded-md lg:rounded-full  px-6 "
+              action={() => router.push("/auth/login")}
+            />
 
-            {/* Dropdown Menu */}
-            <ul tabIndex={0} className=" w-full flex flex-col gap-[2rem] ">
-              <li><Link href={"/home/education"} className="  rounded-md  justify-between items-center  flex  ">
-                <span>Dashboard </span>
-                <ChevronRight className="w-5 h-5" />
-              </Link>
-              </li>
-              <li>
-                <Link
-                  href="/profile"
-                  className="flex w-full justify-between  items-center gap-2"
-                >
-                  <span>View Profile</span>
-                  <User className="w-5 h-5 " />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/settings"
-                  className="flex items-center w-full justify-between  gap-2"
-                >
-                  <span>Settings</span>
-                  <Settings className="w-5 h-5 " />
-                </Link>
-              </li>
-              <li>
-                <div className="flex items-center w-full justify-between  gap-2">
-                  <span>Logout</span>
-                  <LogOut className="w-5 h-5" />
-                </div>
-              </li>
-            </ul>
-            <hr className=" mt-5" />
+            <CustomButton
+              title="Sign Up"
+              styles=" border-initialPrimary-500 border-[2px] w-full flex items-center rounded-md h-[40px] justify-center lg:w-[120px] hover:opacity-80  bg-initialPrimary-500 text-white py-2 lg:rounded-full  px-6 "
+              action={() => router.push("/auth/sign-up")}
+            />
           </div>
-        )}
+        </div>
+
         <div className="mt-6 flex flex-col opacity-80 gap-[2rem]">
-          {navLinks.map((items) => (
+          {navLinks.map(items => (
             <div key={items.name} className="  flex flex-col gap-[5rem] ">
               <Link href={items.link}>{items.name}</Link>
             </div>

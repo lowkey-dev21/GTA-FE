@@ -17,7 +17,6 @@ export interface CustomButtonProps {
 export interface HeaderProps {
   logo: StaticImageData;
   navLinks: HeaderItems[];
-  auth: ReactNode;
   modeToggler: ReactNode;
 }
 

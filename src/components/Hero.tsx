@@ -2,24 +2,9 @@
 import Link from "next/link";
 import FinlogixWidget from "./FinlogixWidget";
 import { webName } from "@/constants";
-// import { useAuthCheck } from "@/features/auth/hooks/uesAuthCheck";
-import HeroSkeleton from "@/skeleton/HeroSkeleton";
 
 
 const Hero = () => {
-
-  // //check auth
-  // const { isLoading, loadingUI, user } = useAuthCheck({
-  //   LoadingComponent: HeroSkeleton,
-  //   requireAuth: false,
-  // });
-
-  // if (isLoading) return loadingUI;
-
-
-
-
-
   return (
     <>
       <section className=" font-latoRegular  xl:py-[6rem] w-full flex-col  xl:flex-row  gap-[3rem] flex justify-between ">
@@ -57,24 +42,23 @@ const Hero = () => {
                 academy. Access comprehensive courses and resources to guide you
                 toward financial success. Start your journey today!
               </p>
-              
-                <div className=" flex gap-4  sm:w-[60%] w-full justify-between">
-                  <Link
-                    onClick={() => console.log("Clicked")}
-                    href={"/auth/login"}
-                    className="flex mt-10    xl:w-[50%] text-blue-600 items-center mx-auto sm:mx-0  sm:w-[50%]  sm:rounded-3xl gap-2 sm:h-[70px]  h-[60px] border-blue-600 border-[2px] w-full rounded-full justify-center p-5 text-xl font-bold"
-                  >
-                    <span className=" text-xl  ">LOGIN</span>
-                  </Link>
-                  <Link
-                    onClick={() => console.log("Clicked")}
-                    href={"/auth/sign-up"}
-                    className="flex mt-10 xl:w-[50%] sm:w-[50%]  h-[60px] items-center mx-auto sm:mx-0  sm:rounded-3xl gap-2 sm:h-[70px]  text-white bg-blue-600 w-full rounded-full justify-center p-5 text-xl font-bold"
-                  >
-                    <p>SIGN UP</p>
-                  </Link>
-                </div>
-              
+
+              <div className=" flex gap-4  sm:w-[60%] w-full justify-between">
+                <Link
+                  onClick={() => console.log("Clicked")}
+                  href={"/auth/login"}
+                  className="flex mt-10    xl:w-[50%] text-blue-600 items-center mx-auto sm:mx-0  sm:w-[50%]  sm:rounded-3xl gap-2 sm:h-[70px]  h-[60px] border-blue-600 border-[2px] w-full rounded-full justify-center p-5 text-xl font-bold"
+                >
+                  <span className=" text-xl  ">LOGIN</span>
+                </Link>
+                <Link
+                  onClick={() => console.log("Clicked")}
+                  href={"/auth/sign-up"}
+                  className="flex mt-10 xl:w-[50%] sm:w-[50%]  h-[60px] items-center mx-auto sm:mx-0  sm:rounded-3xl gap-2 sm:h-[70px]  text-white bg-blue-600 w-full rounded-full justify-center p-5 text-xl font-bold"
+                >
+                  <p>SIGN UP</p>
+                </Link>
+              </div>
             </div>
           </div>
         </section>

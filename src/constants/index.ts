@@ -18,16 +18,8 @@ export const navLinks: HeaderItems[] = [
     link: "/features",
   },
   {
-    name: "Docs",
-    link: "/docs",
-  },
-  {
     name: "Blog",
     link: "/blog",
-  },
-  {
-    name: "Merch",
-    link: "/merch",
   },
 ];
 

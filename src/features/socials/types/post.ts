@@ -10,7 +10,8 @@ export interface Post {
   title: string;
   content: string;
   createdAt: string;
-  author: string
+  author: string;
+  authorId: string;
   fullName: string;
 profilePicture: string,
   images: string;
